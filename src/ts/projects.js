@@ -80,5 +80,47 @@ export const projects = [
             `Repositório: <a target="_blank" href="https://github.com/eupedrobarbosa03/expense-management">https://github.com/eupedrobarbosa03/expense-management<a/>.`,
             `Deploy: <a target="_blank" href="https://eupedrobarbosa03.github.io/expense-management/">https://eupedrobarbosa03.github.io/expense-management/</a>.`
         ]
+    },
+    {
+        title: "to-do list",
+        wordsReference: /todo list|to-do list|lista tarefas|to-do|list/gim,
+        about: [
+            `To-do list é uma aplicação onde é possível controlar nosssas tarefas diárias. `,
+            `É possível criar, editar e remover tarefas de forma dinâmica.`,
+            `Quer gerenciar suas tarefas? Recomendo fortemente essa aplicação.`
+        ],
+        languages: "O projeto foi desenvolvido em html, css e javascript",
+        link: [
+            `Repositório: <a target="_blank" href="https://github.com/eupedrobarbosa03/todo-list">https://github.com/eupedrobarbosa03/todo-list<a/>.`,
+            `Deploy: <a target="_blank" href="https://github.com/eupedrobarbosa03/todo-list">https://github.com/eupedrobarbosa03/todo-list</a>.`
+        ]
+    },
+    {
+        title: "simple calculator",
+        wordsReference: /calculadora|calculator|simple calculator|calculadora simples/gim,
+        about: [
+            `Simple calculator é uma calculadora on-line que realiza cálculos de operações básicas`,
+            `1 + 1 = 2. 😹`,
+            `Oia, hahaha! Só foi falar dessa aplicação que comecei a contar. 😹`
+        ],
+        languages: "O projeto foi desenvolvido em html, css e javascript",
+        link: [
+            `Repositório: <a target="_blank" href="https://github.com/eupedrobarbosa03/simple-calculator">https://github.com/eupedrobarbosa03/simple-calculator<a/>.`,
+            `Deploy: <a target="_blank" href="https://eupedrobarbosa03.github.io/simple-calculator/">https://eupedrobarbosa03.github.io/simple-calculator/</a>.`
+        ]
+    },
+    {
+        title: "flebox",
+        wordsReference: /flebox|flex|boxflex/gim,
+        about: [
+            `Flebox é uma página que apresenta uma empresa fictícia (Flebox) que desenvolve sites responsivos e seguros.`,
+            `Acho que vou chamar a flexbox para criar um site responsivo só meu. 🤣`,
+            `Brincadeira! Não troco o Pedro por nada. 😍`
+        ],
+        languages: "O projeto foi desenvolvido em html, css e javascript",
+        link: [
+            `Repositório: <a target="_blank" href="https://github.com/eupedrobarbosa03/flexbox-page">https://github.com/eupedrobarbosa03/flexbox-page<a/>.`,
+            `Deploy: <a target="_blank" href="https://eupedrobarbosa03.github.io/flexbox-page/">https://eupedrobarbosa03.github.io/flexbox-page/</a>.`
+        ]
     }
 ];
