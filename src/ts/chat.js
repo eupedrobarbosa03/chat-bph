@@ -5,10 +5,11 @@ const messageSend = document.querySelector("#container_send");
 const botMessages = document.querySelectorAll(".chat_bot");
 const userMessages = document.querySelectorAll(".chat_user");
 ;
+console.log(projects.length);
 const regExpMessages = {
     aboutBot: /voc[êe] sobre|sobre voc[êe]|quero saber sobre voc[êe]|quem criou voc[êe]/gim,
     genericMessages: /belezinha|beleza|(boa noite[e]+)|(bom di[a]+)|(boa tard[e]+)|prazer|muito bem|opa|ol[áa]|(^o[i]+e?)|bem|estou bem|est[áa] tudo bem comigo|tudo bem comigo|estou feliz|estou muito bem/gim,
-    projects: /(ban(k|c)o?( ?|-?)t?s?)|(portf[óo]lio)|(generator 2|password 2|generator password 2|passsowrd generator 2|generator 2|password 2)|(postal|postal code|postal code brazil|brazil code|cep)|(boxshadow|generator boxshadow|generator shadow|generator box)|(expense|expense management|management)|(todo list|to-do list|lista tarefas|to-do|list)|(calculadora|calculator|simple calculator|calculadora simples)|(flebox|flex|boxflex)/gim
+    projects: /(ban(k|c)o?( ?|-?)t?s?)|(portf[óo]lio)|(generator 2|password 2|generator password 2|passsowrd generator 2|generator 2|password 2)|(postal|postal code|postal code brazil|brazil code|cep)|(boxshadow|generator boxshadow|generator shadow|generator box)|(expense|expense management|management)|(todo list|to-do list|lista tarefas|to-do|list)|(calculadora|calculator|simple calculator|calculadora simples)|(flebox|flex|boxflex)|(generator ?1?|password ?1?|generator password)|(student ?(situation)?)|(controle de produtos|produtos controle)|(academy ?(control)?|control academy)|(chat ?-?bot|bot ?-?chat)/gim
 };
 const messagesAll = { bot: [], user: [] };
 class Chat {
