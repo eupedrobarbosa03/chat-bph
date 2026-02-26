@@ -1,5 +1,5 @@
 class Storage {
-    public key: string;
+    protected readonly key: string;
     constructor(key: string) {
         this.key = key;
     };

@@ -1,7 +1,12 @@
 import { projects } from "./projects.js";
+import { storage } from "./storage.js";
 
 if (!localStorage.getItem("teachings"))
     localStorage.setItem("teachings", JSON.stringify([]));
+
+localStorage.setItem("teachings", JSON.stringify([
+    {title: "teste", teachings: ["teste", "teste"]},
+]));
 
 const chat = document.querySelector<HTMLInputElement>(".container_chat");
 const messageUser = document.querySelector<HTMLInputElement>("#message_user");
@@ -120,7 +125,12 @@ class Chat {
             this.attemptToTeachProject = true;
             return;
         };
+
         this.attemptToTeachProject = false;
+
+        const storangeTeachings: Teaching = storage.list();
+        console.log(titleStandard, teachingStandard);
+
     };
 
     botInitialMessages(): void {

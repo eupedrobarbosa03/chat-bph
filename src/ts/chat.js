@@ -1,6 +1,10 @@
 import { projects } from "./projects.js";
+import { storage } from "./storage.js";
 if (!localStorage.getItem("teachings"))
     localStorage.setItem("teachings", JSON.stringify([]));
+localStorage.setItem("teachings", JSON.stringify([
+    { title: "teste", teachings: ["teste", "teste"] },
+]));
 const chat = document.querySelector(".container_chat");
 const messageUser = document.querySelector("#message_user");
 const messageSend = document.querySelector("#container_send");
@@ -102,6 +106,8 @@ class Chat {
         }
         ;
         this.attemptToTeachProject = false;
+        const storangeTeachings = storage.list();
+        console.log(titleStandard, teachingStandard);
     }
     ;
     botInitialMessages() {
