@@ -1,5 +1,8 @@
 import { projects } from "./projects.js";
 
+if (!localStorage.getItem("teachings"))
+    localStorage.setItem("teachings", JSON.stringify([]));
+
 const chat = document.querySelector<HTMLInputElement>(".container_chat");
 const messageUser = document.querySelector<HTMLInputElement>("#message_user");
 const messageSend = document.querySelector<HTMLInputElement>("#container_send");
@@ -10,15 +13,22 @@ interface RegExpMessage {
     aboutBot: RegExp;
     genericMessages: RegExp;
     projects: RegExp;
+    teaching: RegExp;
 };
 
-console.log(projects.length);
+interface Teaching {
+    title: string;
+    teachings: string[];
+};
 
 const regExpMessages: RegExpMessage = {
     aboutBot: /voc[êe] sobre|sobre voc[êe]|quero saber sobre voc[êe]|quem criou voc[êe]/gim,
-    genericMessages: /belezinha|beleza|(boa noite[e]+)|(bom di[a]+)|(boa tard[e]+)|prazer|muito bem|opa|ol[áa]|(^o[i]+e?)|bem|estou bem|est[áa] tudo bem comigo|tudo bem comigo|estou feliz|estou muito bem/gim,
-    projects: /(ban(k|c)o?( ?|-?)t?s?)|(portf[óo]lio)|(generator 2|password 2|generator password 2|passsowrd generator 2|generator 2|password 2)|(postal|postal code|postal code brazil|brazil code|cep)|(boxshadow|generator boxshadow|generator shadow|generator box)|(expense|expense management|management)|(todo list|to-do list|lista tarefas|to-do|list)|(calculadora|calculator|simple calculator|calculadora simples)|(flebox|flex|boxflex)|(generator ?1?|password ?1?|generator password)|(student ?(situation)?)|(controle de produtos|produtos controle)|(academy ?(control)?|control academy)|(chat ?-?bot|bot ?-?chat)/gim
+    genericMessages: /belezinha|beleza|boa noit[e]+|bom di[a]+|boa tard[e]+|prazer|muito bem|opa|ol[áa]|(^o[i]+e?)|bem|estou bem|est[áa] tudo bem comigo|tudo bem comigo|estou feliz|estou muito bem/gim,
+    projects: /(ban(k|c)o?( ?|-?)t?s?)|(portf[óo]lio)|(generator 2|password 2|generator password 2|passsowrd generator 2|generator 2|password 2)|(postal|postal code|postal code brazil|brazil code|cep)|(boxshadow|generator boxshadow|generator shadow|generator box)|(expense|expense management|management)|(todo list|to-do list|lista tarefas|to-do|list)|(calculadora|calculator|simple calculator|calculadora simples)|(flebox|flex|boxflex)|(generator ?1?|password ?1?|generator password)|(student ?(situation)?)|(controle de produtos|produtos controle)|(academy ?(control)?|control academy)|(chat ?-?bot|bot ?-?chat)/gim,
+    teaching: /_[a-z0-9- ]+_/gim
 };
+
+const regExpAll = new RegExp(`${regExpMessages.aboutBot.source}|${regExpMessages.genericMessages.source}|${regExpMessages.projects.source}|${regExpMessages.teaching.source}`)
 
 type Message = {
     bot: string[],
@@ -31,8 +41,10 @@ type TypeChat = "chat_bot" | "chat_user"
 
 class Chat {
     private pendingMessages: string[]
+    private attemptToTeachProject: boolean;
     constructor() {
         this.pendingMessages = [];
+        this.attemptToTeachProject = false;
     };
 
     private responseTimeWithFor(array: string[]): void {
@@ -77,18 +89,38 @@ class Chat {
 
     private messageNotUnderstood(text: string) {  
         text = text.toLowerCase();
-        const regExpAll = new RegExp(`${regExpMessages.aboutBot.source}|${regExpMessages.genericMessages.source}|${regExpMessages.projects.source}`)
         if (text.match(regExpAll)) return false;
         const messagesAboutNotUnderstood: string[] = [
             "Eu não consegui entender o que você escreveu. Ei, você sabia que eu posso ser ensinado? Legal, né?! Para eu aprender você deve seguir um padrão de ensinamento.",
-            "Quer me ensinar a dizer 'bom homem'? Você pode fazer assim: chat, quero que você diga <strong>'bom homem'</strong> sempre que eu falar <strong>'boa chat'</strong>. Sempre use as aspas simples para eu identificar seu ensinamento como no exemplo anterior.",
-            "Usando o exemplo acima, a primeira mensagem que contêm as aspas simples é o principal , a segunda mensagem é o corpo.",
-            "Se você usar vírgulas no corpo, eu tenho um conhecimento adiconal. Exemplo: chat, quando eu falar 'boa chat', você fala 'teste, teste, teste'. Aprendeu? Haha, eu te ensino a mexer comigo e você me ensina seu vocabulário."
+            `Preste muita atenção, amigo. Use _ no começo e no final de uma palavra, assim: _teste_. Detalhe importante, a sua mensagem deve ter dois padrões, o primeiro: _titulo_, o segundo _mensagem_. O primeiro padrão é basicamente o título do que você quer que eu fale ao você citar ele. O segundo padrão é o que contêm o texto que vou falar para você ao você citar o título.`,
+            `No segundo padrão na mensagem, você pode separar por vírgulas, exemplo: _mensagem, mensagem, mensagem_. Nos padrões eu aceito somente letras, números, espaços e o traço (-).`,
+            `Entedeu? 😊`
         ]; 
         messagesAboutNotUnderstood.filter((message) => this.pendingMessages.push(message));
         this.responseTimeWithFor(this.pendingMessages); 
         this.notSpam();
         return true;
+    };
+
+    private botTeachings(text: string) {
+        text = text.toLowerCase();
+        const found = text.match(regExpMessages.teaching);
+        if (found?.length !== 2) {
+            this.pendingMessages.push(`Identifiquei que você está tentando me ensinar, mas você precisa seguir o padrão de ensinamento para <strong>ME ENSINAR</strong>.`)
+            if (found?.toString().replaceAll("_", "").match(regExpAll)) {
+                this.attemptToTeachProject = true;
+            }
+            return;
+        }
+
+        let titleStandard = found[0].replaceAll("_", "");
+        let teachingStandard = found[1]!.replaceAll("_", "")
+        if (titleStandard.match(regExpAll) || teachingStandard?.match(regExpAll)) {
+            this.pendingMessages.push(`Hummmm.....eu já aprendi isso de forma <strong>exclusiva</strong> com o meu criador.`);
+            this.attemptToTeachProject = true;
+            return;
+        };
+        this.attemptToTeachProject = false;
     };
 
     botInitialMessages(): void {
@@ -107,6 +139,8 @@ class Chat {
     private projectsMessages(text: string) {
         text = text.toLowerCase();
         let messages: string[] = [];
+
+        if (this.attemptToTeachProject) return;
 
         if (text.match(regExpMessages.projects)) {
             const quanatity = text.match(regExpMessages.projects)!.length;
@@ -210,6 +244,7 @@ class Chat {
         this.pendingMessages = [];
         if (!this.messageNotUnderstood(message)) {
             this.responseTimeWithFor(this.pendingMessages);           
+            this.botTeachings(message);
             this.genericMessages(message);
             this.projectsMessages(message);
             this.botAbout(message);      

@@ -38,7 +38,7 @@ export const projects: Project[] = [
         title: "generator password 2",
         wordsReference: /generator 2|password 2|generator password 2|passsowrd generator 2|generator 2|password 2/gim,
         about: [
-            `O generator password 2 é uma segunda versão do <strong>generator password</strong>, agora com funcionalidades de escolher os tipos de caracteres.`,
+            `O generator password 2 é uma segunda versão do <strong>generator password</strong> com funcionalidades de escolher os tipos de caracteres.`,
             `Vamos ao ponto, generator password 2 é uma gerador de senhas fortes e seguras.`,
             `Quer senha forte e segura? Gere nessa aplicação incrível. ⭐`
         ],
