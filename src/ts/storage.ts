@@ -4,7 +4,7 @@ class Storage {
         this.key = key;
     };
 
-    list<T>() {
+    list<T>(){
         const getStorageTeachings = localStorage.getItem(this.key);
         if (getStorageTeachings) return JSON.parse(getStorageTeachings) || [];
     };
@@ -17,7 +17,15 @@ class Storage {
             localStorage.setItem(this.key, JSON.stringify(storage));
         }
     };
-    update<T extends {text: string}>(storageUpdate: T): void {};
+    update<T extends {title: string}>(storageUpdate: T): void {
+        const getStorageTeachings = localStorage.getItem(this.key);
+        if (!getStorageTeachings) return;
+        const listTeachings: T[] = JSON.parse(getStorageTeachings);
+        const teachingUpdate = listTeachings.map((teaching) => 
+            teaching.title === storageUpdate.title ? storageUpdate : teaching
+        );
+        localStorage.setItem(this.key, JSON.stringify(teachingUpdate));
+    };
 };
 
 export const storage = new Storage(`teachings`);

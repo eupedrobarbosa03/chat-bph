@@ -19,7 +19,14 @@ class Storage {
         }
     }
     ;
-    update(storageUpdate) { }
+    update(storageUpdate) {
+        const getStorageTeachings = localStorage.getItem(this.key);
+        if (!getStorageTeachings)
+            return;
+        const listTeachings = JSON.parse(getStorageTeachings);
+        const teachingUpdate = listTeachings.map((teaching) => teaching.title === storageUpdate.title ? storageUpdate : teaching);
+        localStorage.setItem(this.key, JSON.stringify(teachingUpdate));
+    }
     ;
 }
 ;

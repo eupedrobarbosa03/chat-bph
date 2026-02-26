@@ -4,10 +4,6 @@ import { storage } from "./storage.js";
 if (!localStorage.getItem("teachings"))
     localStorage.setItem("teachings", JSON.stringify([]));
 
-localStorage.setItem("teachings", JSON.stringify([
-    {title: "teste", teachings: ["teste", "teste"]},
-]));
-
 const chat = document.querySelector<HTMLInputElement>(".container_chat");
 const messageUser = document.querySelector<HTMLInputElement>("#message_user");
 const messageSend = document.querySelector<HTMLInputElement>("#container_send");
@@ -30,7 +26,7 @@ const regExpMessages: RegExpMessage = {
     aboutBot: /voc[êe] sobre|sobre voc[êe]|quero saber sobre voc[êe]|quem criou voc[êe]/gim,
     genericMessages: /belezinha|beleza|boa noit[e]+|bom di[a]+|boa tard[e]+|prazer|muito bem|opa|ol[áa]|(^o[i]+e?)|bem|estou bem|est[áa] tudo bem comigo|tudo bem comigo|estou feliz|estou muito bem/gim,
     projects: /(ban(k|c)o?( ?|-?)t?s?)|(portf[óo]lio)|(generator 2|password 2|generator password 2|passsowrd generator 2|generator 2|password 2)|(postal|postal code|postal code brazil|brazil code|cep)|(boxshadow|generator boxshadow|generator shadow|generator box)|(expense|expense management|management)|(todo list|to-do list|lista tarefas|to-do|list)|(calculadora|calculator|simple calculator|calculadora simples)|(flebox|flex|boxflex)|(generator ?1?|password ?1?|generator password)|(student ?(situation)?)|(controle de produtos|produtos controle)|(academy ?(control)?|control academy)|(chat ?-?bot|bot ?-?chat)/gim,
-    teaching: /_[a-z0-9-, ]+_/gim
+    teaching: /_([a-zéãóáàèêâ0-9-,] ?)+_/gim
 };
 
 const regExpAll = new RegExp(`${regExpMessages.aboutBot.source}|${regExpMessages.genericMessages.source}|${regExpMessages.projects.source}|${regExpMessages.teaching.source}`)
@@ -46,10 +42,12 @@ type TypeChat = "chat_bot" | "chat_user"
 
 class Chat {
     private pendingMessages: string[]
-    private attemptToTeachProject: boolean;
+    private attemptToTeachMessagesPredefined: boolean;
+    private teachingCompleted: boolean;
     constructor() {
         this.pendingMessages = [];
-        this.attemptToTeachProject = false;
+        this.attemptToTeachMessagesPredefined = false;
+        this.teachingCompleted = false;
     };
 
     private responseTimeWithFor(array: string[]): void {
@@ -110,36 +108,57 @@ class Chat {
     private botTeachings(text: string) {
         text = text.toLowerCase();
         const found = text.match(regExpMessages.teaching);
+        if (!found) return;
         if (found?.length !== 2) {
             this.pendingMessages.push(`Identifiquei que você está tentando me ensinar, mas você precisa seguir o padrão de ensinamento para <strong>ME ENSINAR</strong>.`)
             if (found?.toString().replaceAll("_", "").match(regExpAll)) {
-                this.attemptToTeachProject = true;
+                this.attemptToTeachMessagesPredefined = true;
             }
             return;
         }
 
-        let titleStandard = found[0].replaceAll("_", "");
+        let titleStandard = found[0].replaceAll("_", "").trim();
         let teachingStandard = found[1]!.replaceAll("_", "");
 
         if (titleStandard.match(regExpAll) || teachingStandard?.match(regExpAll)) {
             this.pendingMessages.push(`Hummmm.....eu já aprendi isso de forma <strong>exclusiva</strong> com o meu criador.`);
-            this.attemptToTeachProject = true;
+            this.attemptToTeachMessagesPredefined = true;
             return;
         };
 
-        this.attemptToTeachProject = false;
-
-        const storangeTeachings: Teaching = storage.list();
-        console.log(titleStandard, teachingStandard);
+        this.attemptToTeachMessagesPredefined = false;
 
         if (teachingStandard.includes(",")) {
             const newFormat = teachingStandard.replaceAll(" ", "").split(",");
-            const filterTeachingStandard = newFormat.filter((teaching) => teaching !== '');
-            console.log(filterTeachingStandard.length);
+            const filterTeachingStandard = newFormat.filter((teaching) => 
+                teaching !== '');
+            if (filterTeachingStandard.length > 4) {
+                this.pendingMessages.push(`Ihhhhh... Você fez mais separações do que o combinado... Não vou aprender dessa forma. ❌`, `Coloque no máximo quatro separações.`);
+                return;
+            };
         };
 
+        const filterTeachingStandard = teachingStandard.split(",").filter((teaching) => teaching !== ' ');
 
-        // const teaching: Teaching = {}
+        const storangeTeachings: Teaching[] = storage.list();
+        const existingTeaching = storangeTeachings.find((teaching) => 
+            teaching.title === titleStandard.toLowerCase().trim());
+
+        if (existingTeaching) {
+            existingTeaching.teachings = [];
+            existingTeaching.teachings = [...filterTeachingStandard];
+            storage.update(existingTeaching);
+            this.pendingMessages.push(`Rapaz... 👀. Você já me ensinou isso. Estou entendendo que você está me ensinando a mesma coisa porém com outra explicação, logo, vou passar a usar esse "novo" ensinamento. ⭐`);
+            return;
+        };
+
+        const teaching: Teaching = {
+            title: titleStandard.toLowerCase().trim(),
+            teachings: filterTeachingStandard
+        };
+
+        storage.append(teaching);
+        this.pendingMessages.push(`Muito obrigado pelo ensinamento. Vamos fazer um teste?! 👀.`, `Então fica assim quando você falar "${titleStandard.trim().toLowerCase()}:"`, ...filterTeachingStandard);
 
     };
 
@@ -160,7 +179,7 @@ class Chat {
         text = text.toLowerCase();
         let messages: string[] = [];
 
-        if (this.attemptToTeachProject) return;
+        if (this.attemptToTeachMessagesPredefined || this.teachingCompleted) return;
 
         if (text.match(regExpMessages.projects)) {
             const quanatity = text.match(regExpMessages.projects)!.length;
@@ -187,7 +206,8 @@ class Chat {
         const found = text.match(regExpMessages.genericMessages);
         const index = found?.filter((word) => word !== '');
         if (index?.length === 0 || !index) return;
-    
+
+        if (this.attemptToTeachMessagesPredefined || this.teachingCompleted) return;
 
         const simpleMessages: string[] = [
             "estou bem",
@@ -246,6 +266,7 @@ class Chat {
         const found = text.match(regExpMessages.aboutBot);
         const index = found?.filter((word) => word !== '');
         if (index?.length === 0 || !index) return;
+        if (this.attemptToTeachMessagesPredefined || this.teachingCompleted) return;
 
         const messages: string[] = [
             `Hummm, você disse "${index?.length !== 1 ? index?.join(", ") : index}", sim, posso falar sobre mim.`,
