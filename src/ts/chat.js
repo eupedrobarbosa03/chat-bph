@@ -5,17 +5,16 @@ if (!localStorage.getItem("teachings"))
 const chat = document.querySelector(".container_chat");
 const messageUser = document.querySelector("#message_user");
 const messageSend = document.querySelector("#container_send");
-const botMessages = document.querySelectorAll(".chat_bot");
-const userMessages = document.querySelectorAll(".chat_user");
 ;
 ;
 const regExpMessages = {
     aboutBot: /voc[êe] sobre|sobre voc[êe]|quero saber sobre voc[êe]|quem criou voc[êe]/gim,
     genericMessages: /belezinha|beleza|boa noit[e]+|bom di[a]+|boa tard[e]+|prazer|muito bem|opa|ol[áa]|(^o[i]+e?)|bem|estou bem|est[áa] tudo bem comigo|tudo bem comigo|estou feliz|estou muito bem/gim,
     projects: /(ban(k|c)o?( ?|-?)t?s?)|(portf[óo]lio)|(generator 2|password 2|generator password 2|passsowrd generator 2|generator 2|password 2)|(postal|postal code|postal code brazil|brazil code|cep)|(boxshadow|generator boxshadow|generator shadow|generator box)|(expense|expense management|management)|(todo list|to-do list|lista tarefas|to-do|list)|(calculadora|calculator|simple calculator|calculadora simples)|(flebox|flex|boxflex)|(generator ?1?|password ?1?|generator password)|(student ?(situation)?)|(controle de produtos|produtos controle)|(academy ?(control)?|control academy)|(chat ?-?bot|bot ?-?chat)/gim,
-    teaching: /_([a-zéãóáàèêâ0-9-,] ?)+_/gim
+    teaching: /#[a-zéãóáàèêâ0-9\,\ \-\!\?\.]+#/gim,
+    commands: /^\+(comandos|ajuda|projetos|ensinamentos|pedro)$/gim
 };
-const regExpAll = new RegExp(`${regExpMessages.aboutBot.source}|${regExpMessages.genericMessages.source}|${regExpMessages.projects.source}|${regExpMessages.teaching.source}`);
+const regExpAll = new RegExp(`${regExpMessages.aboutBot.source}|${regExpMessages.genericMessages.source}|${regExpMessages.projects.source}|${regExpMessages.teaching.source}|${regExpMessages.commands.source}`);
 const messagesAll = { bot: [], user: [] };
 class Chat {
     pendingMessages;
@@ -74,41 +73,70 @@ class Chat {
         text = text.toLowerCase();
         if (text.match(regExpAll))
             return false;
-        const messagesAboutNotUnderstood = [
-            "Eu não consegui entender o que você escreveu. Ei, você sabia que eu posso ser ensinado? Legal, né?! Para eu aprender você deve seguir um padrão de ensinamento.",
-            `Preste muita atenção, amigo. Use _ no começo e no final de uma palavra, assim: _teste_. Detalhe importante, a sua mensagem deve ter dois padrões, o primeiro: _titulo_, o segundo _mensagem_. O primeiro padrão é basicamente o título do que você quer que eu fale ao você citar ele. O segundo padrão é o que contêm o texto que vou falar para você ao você citar o título.`,
-            `No segundo padrão na mensagem, você pode separar por vírgulas, exemplo: _mensagem, mensagem, mensagem_. Nos padrões eu aceito somente letras, números, espaços e o traço (-). Eu só aceito no máximo quatro separações por vírgulas.`,
-            `Entedeu? 😊`
-        ];
-        messagesAboutNotUnderstood.filter((message) => this.pendingMessages.push(message));
+        this.pendingMessages.push(`Hummmm.... não entendi. Use +comandos para saber algumas informações.`);
         this.responseTimeWithFor(this.pendingMessages);
         this.notSpam();
         return true;
     }
     ;
+    botCommands(text) {
+        text = text.toLowerCase().trim();
+        const found = text.match(regExpMessages.commands);
+        if (!found)
+            return;
+        switch (found[0]) {
+            case "+comandos":
+                this.pendingMessages.push(`<strong>Lista de comandos disponíveis e suas funções:</strong>`, `+comandos: Lista todos os comandos disponíveis.<br>+ajuda: Mostra o tutorial completo para ensinar a mim.<br>+projetos: Lista todos os projetos do meu criador.<br>+ensinamentos: Lista todos os ensinamentos que você me ensinou.<br>+pedro: Comando exclusivo para falar sobre meu criador.`);
+                break;
+            case "+ensinamentos":
+                const teachings = storage.list();
+                if (teachings.length === 0) {
+                    this.pendingMessages.push(`Até o momento você não me ensinou nada.`);
+                    return;
+                }
+                ;
+                let listTeachingsFormated = [];
+                teachings.filter((teaching) => listTeachingsFormated.push(`<strong>Ensinamento</strong>: ${teaching.title} | <strong>Retorno</strong>: [${teaching.teachings.join(", ").replaceAll(", ", ", ")}]#`));
+                const newListTeaching = `${listTeachingsFormated.join("").replaceAll("#", "<br>")}`;
+                this.pendingMessages.push(newListTeaching, `Total de ensinamentos: ${teachings.length}.`);
+                break;
+            case "+ajuda":
+                this.pendingMessages.push(`Você usou o comando <strong>+ajuda</strong>.`, `Essa ajuda é para você entender o sistema de ensinamentos.`, `<strong>Tutorial:</strong> Seu ensinamento deve possuir dois identificadores, o #. Há dois modelos de ensinamentos.`, `<strong>Modelo Simples: </strong> #título do ensinamento# e #ensinamentos#`, `<strong>Modelo Avançado:</strong> #título do ensinamento# e #ensinamento-ensinamento-ensinamento#`, `A grande diferença é que no modelo simples não há separadores (-), e no modelo avançado possuem um ou mais.`, `<strong>Exemplo modelos simples:</strong> chat, quando eu falar #teste# você deve falar #pedro é um grande amigo.#`, `<strong>Exemplo modelos avançado</strong>: chat, quando eu falar #teste# você diz #teste-teste-teste#.`, `Aceito letras, números, espaços, ponto (.), vírgula (,), interrogação e exclamação.`);
+                break;
+            case "+projetos":
+                break;
+            case "+pedro":
+                break;
+            default:
+                break;
+        }
+        ;
+    }
+    ;
     botTeachings(text) {
         text = text.toLowerCase();
         const found = text.match(regExpMessages.teaching);
+        this.teachingCompleted = false;
         if (!found)
             return;
         if (found?.length !== 2) {
             this.pendingMessages.push(`Identifiquei que você está tentando me ensinar, mas você precisa seguir o padrão de ensinamento para <strong>ME ENSINAR</strong>.`);
-            if (found?.toString().replaceAll("_", "").match(regExpAll)) {
+            if (found?.toString().replaceAll("#", "").match(regExpAll)) {
                 this.attemptToTeachMessagesPredefined = true;
             }
             return;
         }
-        let titleStandard = found[0].replaceAll("_", "").trim();
-        let teachingStandard = found[1].replaceAll("_", "");
-        if (titleStandard.match(regExpAll) || teachingStandard?.match(regExpAll)) {
+        let titleStandard = found[0].replaceAll("#", "").trim();
+        let teachingStandard = found[1].replaceAll("#", "");
+        if (titleStandard.match(regExpAll)) {
             this.pendingMessages.push(`Hummmm.....eu já aprendi isso de forma <strong>exclusiva</strong> com o meu criador.`);
             this.attemptToTeachMessagesPredefined = true;
             return;
         }
         ;
         this.attemptToTeachMessagesPredefined = false;
-        if (teachingStandard.includes(",")) {
-            const newFormat = teachingStandard.replaceAll(" ", "").split(",");
+        if (teachingStandard.includes("-")) {
+            const newFormat = teachingStandard.replaceAll(" ", "").split("-");
             const filterTeachingStandard = newFormat.filter((teaching) => teaching !== '');
             if (filterTeachingStandard.length > 4) {
                 this.pendingMessages.push(`Ihhhhh... Você fez mais separações do que o combinado... Não vou aprender dessa forma. ❌`, `Coloque no máximo quatro separações.`);
@@ -117,9 +145,10 @@ class Chat {
             ;
         }
         ;
-        const filterTeachingStandard = teachingStandard.split(",").filter((teaching) => teaching !== ' ');
+        const filterTeachingStandard = teachingStandard.split("-").filter((teaching) => teaching !== ' ');
         const storangeTeachings = storage.list();
         const existingTeaching = storangeTeachings.find((teaching) => teaching.title === titleStandard.toLowerCase().trim());
+        this.teachingCompleted = true;
         if (existingTeaching) {
             existingTeaching.teachings = [];
             existingTeaching.teachings = [...filterTeachingStandard];
@@ -136,14 +165,25 @@ class Chat {
         this.pendingMessages.push(`Muito obrigado pelo ensinamento. Vamos fazer um teste?! 👀.`, `Então fica assim quando você falar "${titleStandard.trim().toLowerCase()}:"`, ...filterTeachingStandard);
     }
     ;
+    showTeachings(text) {
+        const storangeTeachings = storage.list();
+        const existingTeaching = storangeTeachings.find((teaching) => teaching.title === text.toLowerCase().trim());
+        if (!existingTeaching)
+            return false;
+        this.pendingMessages.push(...existingTeaching.teachings);
+        return true;
+    }
+    ;
     botInitialMessages() {
         const initialMessages = [
             "Olá, tudo bem?! 😊",
             "Sou um <strong>chat desenvolvido</strong> para falar sobre meu criador, posso falar sobre os projetos dele, linguagens utilizadas, etc. Ah, eu posso falar sobre mim também!",
-            "Olha, mas vai com calma! Eu posso não entender certas frases ou palavras.",
-            "Hahaha, acho que falei demais! 😹. Agora é sua vez, conta-me, o que você quer saber?"
+            "Olha, mas vai com calma! Eu posso não entender certas frases ou palavras. E é por isso que você me ensinar. ⭐",
+            `Só mais uma coisa, digite <strong>+comandos</strong> para ver todos os comandos disponíveis.`
         ];
-        this.responseTimeWithFor(initialMessages);
+        setTimeout(() => {
+            this.responseTimeWithFor(initialMessages);
+        }, 1000);
     }
     ;
     projectsMessages(text) {
@@ -238,25 +278,34 @@ class Chat {
     }
     ;
     general(message) {
-        if (messageUser?.value.trim() === "")
+        if (messageUser?.value.trim() === "" || messagesAll.bot.length < 4)
             return;
         this.handleChat("chat_user", message);
         messageSend?.classList.add("noSend");
         this.pendingMessages = [];
+        if (this.showTeachings(message)) {
+            this.responseTimeWithFor(this.pendingMessages);
+            this.notSpam();
+            return;
+        }
+        ;
         if (!this.messageNotUnderstood(message)) {
             this.responseTimeWithFor(this.pendingMessages);
+            this.botCommands(message);
+            this.showTeachings(message);
             this.botTeachings(message);
             this.genericMessages(message);
             this.projectsMessages(message);
             this.botAbout(message);
             this.notSpam();
         }
+        ;
     }
     ;
 }
 ;
 const chatExe = new Chat();
-// chatExe.botInitialMessages();
+chatExe.botInitialMessages();
 messageSend.addEventListener("click", () => {
     const message = messageUser.value;
     chatExe.general(message);
