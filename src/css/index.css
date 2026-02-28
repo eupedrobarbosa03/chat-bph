@@ -20,7 +20,7 @@ body {
 #box_container_chat {
     background-color: #f8f8f8;
     min-height: 400px;
-    min-width: 700px;
+    min-width: 800px;
     border-radius: 20px;
     margin-top: 40px;
     box-shadow: 1px 1px 3px #33333333;
@@ -76,7 +76,6 @@ body {
     background-color: #e4e2e2;
     color: #0f0f0f;
     margin-top: 5px;
-    transition: .5s;
     box-shadow: 1px 1px 5px #33333350;    
 }
 

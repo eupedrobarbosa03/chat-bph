@@ -1,9 +1,6 @@
 const iconBot = document.querySelector<HTMLImageElement>("#icon_bot");
 const changeTheme = document.querySelector<HTMLInputElement>("#icon_change_theme");
-const chatBot = document.querySelectorAll<HTMLDivElement>(".chat_bot")
-const chatUser = document.querySelectorAll<HTMLDivElement>(".chat_user")
-
-if (!localStorage.getItem("theme")) localStorage.setItem("theme", "inactive");
+if (!localStorage.getItem("theme")) localStorage.setItem("theme", "active");
 
 interface Element<T> {
     headerTitle: T;
@@ -27,14 +24,32 @@ class Theme {
         }
     };
 
+
+    private chatTheme(method: "add" | "remove") {
+        const chatUser = document.querySelectorAll<HTMLDivElement>(".chat_user");
+        const chatBot = document.querySelectorAll<HTMLDivElement>(".chat_bot");
+        switch (method) {
+            case "add":
+                chatUser.forEach((chat) => chat.classList.add("theme_dark"));
+                chatBot.forEach((chat) => chat.classList.add("theme_dark"));
+                break;
+            case "remove":
+                chatUser.forEach((chat) => chat.classList.remove("theme_dark"));
+                chatBot.forEach((chat) => chat.classList.remove("theme_dark"));
+                break;
+            default:
+                break;
+        }
+    };
+
     public light(): void {
         Object.values(this.elements).forEach((element) => element.classList.remove("theme_dark"));
         document.body.classList.remove("theme_dark");
         iconBot!.src = 'assets/icons/tecnologia.png';
         changeTheme?.removeAttribute("class");
         changeTheme?.setAttribute("class", "fa-regular fa-moon moon");
-        chatUser.forEach((chat) => chat.classList.remove("theme_dark"));
-        localStorage.setItem("theme", "");
+        localStorage.setItem("theme", "inactive");
+        this.chatTheme("remove")
     };
 
     public dark(): void {
@@ -43,19 +58,28 @@ class Theme {
         iconBot!.src = 'assets/icons/tecnologia_light.png'
         changeTheme?.removeAttribute("class");
         changeTheme?.setAttribute("class", "fa-regular fa-sun sun");
-        chatUser.forEach((chat) => chat.classList.add("theme_dark"));
-        localStorage.setItem("theme", "active")
+        localStorage.setItem("theme", "active");
+        this.chatTheme("add");
     };
 
     public themeStorage(): void {
         const storage = localStorage.getItem("theme");
         if (!storage) return;
-        storage
+        storage === "inactive" ? this.light() : this.dark();
     };
+
+    public applyingThemeChatUser(): string | void{
+        const storage = localStorage.getItem("theme");
+        if (!storage) return;
+        storage === "active" ? this.chatTheme("add") : this.chatTheme("remove");
+    }
 
 };
 
-const theme = new Theme();
+
+export const theme = new Theme();
+
+theme.themeStorage();
 
 changeTheme?.addEventListener("click", () => {
     isThemeDark = !isThemeDark;

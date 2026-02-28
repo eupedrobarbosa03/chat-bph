@@ -1,5 +1,6 @@
 import { projects } from "./projects.js";
 import { storage } from "./storage.js";
+import { theme } from "./theme.js";
 
 if (!localStorage.getItem("teachings"))
     localStorage.setItem("teachings", JSON.stringify([]));
@@ -82,12 +83,13 @@ class Chat {
             setTimeout(() => {            
                 textChat.innerHTML = `${message}`;
                 this.scrollToBottom();
-            }, this.pendingMessages.length + 1000);
+            }, 1000);
         };
         if (typeChat === "chat_user") textChat.innerHTML = message;
         newChat.appendChild(textChat);
         chat?.appendChild(newChat)
         this.scrollToBottom();
+        theme.applyingThemeChatUser();
     };
 
     private messageNotUnderstood(text: string) {  
@@ -343,11 +345,11 @@ class Chat {
         ];
 
         messages.forEach((message) => this.pendingMessages.push(message))
-
     };
 
     general(message: string) {
-        if (messageUser?.value.trim() === "") return;
+        if (messageUser?.value.trim() === "" || messagesAll.bot.length < 4) return;
+        messageUser!.value = '';
         this.handleChat("chat_user", message);
         messageSend?.classList.add("noSend");
         this.pendingMessages = [];
@@ -371,9 +373,19 @@ class Chat {
 };
 
 const chatExe = new Chat();
-// chatExe.botInitialMessages();
+chatExe.botInitialMessages();
 
 messageSend!.addEventListener("click", () => {
     const message = messageUser!.value;
     chatExe.general(message)
+    theme.applyingThemeChatUser();
 });
+
+
+window.addEventListener("keyup", (e) => {
+    if (e.key === "Enter") {
+        const message = messageUser!.value;
+        chatExe.general(message)
+        theme.applyingThemeChatUser();
+    }
+})

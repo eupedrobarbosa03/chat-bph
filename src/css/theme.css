@@ -46,7 +46,7 @@ body.theme_dark {
 
 .chat_bot.theme_dark {
     box-shadow: none;
-    background-color: rgb(57, 57, 248);
+    background-color: rgb(146, 16, 158);
 }
 
 .chat_user.theme_dark {
@@ -62,14 +62,13 @@ body.theme_dark {
 }
 
 #container_send.theme_dark {
-    background-color: rgb(9, 9, 9, .90);
+    background-color: rgb(146, 16, 158);
     color: rgba(207, 207, 207, 0.603);
-    border: 1px solid #242424;
     transition: .5s;
     cursor: pointer;
 }
 
 #container_send.theme_dark:hover {
-    background-color: #242424;
+    background-color: rgba(146, 16, 158, .70);
     color: rgba(207, 207, 207, 0.726);
 }
