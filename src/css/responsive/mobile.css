@@ -1,0 +1,31 @@
+
+@media screen and (max-width: 680px) {
+
+    #box_container_chat {
+        min-width: 340px;
+        height: 520px;
+    }
+
+    .container_chat {
+        height: 500px;
+    }
+
+    .chat_config {
+        max-width: 200px;
+    }
+
+    #container_send_message {
+        margin-top: 2px;
+    }
+
+    #container_send {
+        flex: .3;
+    }
+
+    #container_change_theme {
+        top: 20px;
+        right: 20px;
+    }
+
+}
+
