@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"> 
+    <link rel="stylesheet" href="src/css/theme.css">
     <link rel="stylesheet" href="src/css/config.css">
     <link rel="stylesheet" href="src/css/index.css">
     <title>CHAT BPH</title>
@@ -11,10 +12,12 @@
 <body>
     <header id="container_title_icon">
         <img src="assets/icons/tecnologia.png" id="icon_bot" alt="icon_bot">
-        <p>CHAT BPH v1.0</p>
+        <p id="header_title">CHAT BPH v1.0</p>
     </header>
     <main id="box_container_chat">
         <section class="container_chat">
+            <div class="chat_bot chat_config"><p>oi</p></div>
+            <div class="chat_user chat_config"><p>oi</p></div>
         </section>
         <div id="container_send_message">
             <input type="text" id="message_user" placeholder="Mensagem">
@@ -24,7 +27,12 @@
         </div>
     </main>
 
+    <div id="container_change_theme">
+        <i class="fa-regular fa-moon moon" id="icon_change_theme"></i>
+    </div>
+
     <script src="src/ts/chat.js" type="module"></script>
+    <script src="src/ts/theme.js" type="module"></script>
 
 </body>
 </html>

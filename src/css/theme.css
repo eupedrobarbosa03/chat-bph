@@ -1,0 +1,75 @@
+#container_change_theme {
+    position: absolute;
+    top: 25px;
+    right: 50px;
+}
+
+#icon_change_theme {
+    font-size: 2.5rem;
+    cursor: pointer;
+}
+
+.sun {
+    color: rgb(207, 207, 207);
+    text-shadow: 1px 1px 5px rgba(207, 207, 207, 0.603);
+    transition: .3s;
+}
+
+.sun:hover {
+    color: rgb(207, 207, 207, .50);
+    text-shadow: 1px 1px 30px rgba(207, 207, 207, 0.603);
+}
+
+.moon {
+    color: #090909;
+    text-shadow: 1px 1px 5px rgba(9, 9, 9, .60);
+    transition: .5s;
+}
+
+.moon:hover {
+    text-shadow: 1px 1px 30px rgba(9, 9, 9, .60);
+}
+
+body.theme_dark {
+    background-color: rgba(15, 15, 15);
+    transition: .5s;
+}
+
+#header_title.theme_dark {
+    color: #cfcfcf;
+}
+
+#box_container_chat.theme_dark {
+    box-shadow: 1px 1px 5px #141414;
+    background-color: #090909;
+}
+
+.chat_bot.theme_dark {
+    box-shadow: none;
+    background-color: rgb(57, 57, 248);
+}
+
+.chat_user.theme_dark {
+    box-shadow: none;
+    background-color: #242424;
+    color: #f1f1f1;
+}
+
+#message_user.theme_dark {
+    background-color: rgba(15, 15, 15, .20);
+    border: 1px solid #242424;
+    color: rgba(207, 207, 207, 0.726);
+}
+
+#container_send.theme_dark {
+    background-color: rgb(9, 9, 9, .90);
+    color: rgba(207, 207, 207, 0.603);
+    border: 1px solid #242424;
+    transition: .5s;
+    cursor: pointer;
+}
+
+#container_send.theme_dark:hover {
+    background-color: #242424;
+    color: rgba(207, 207, 207, 0.726);
+}

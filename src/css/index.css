@@ -6,8 +6,8 @@ body {
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    transition: .5s;
 }
-
 
 #container_title_icon {
     display: flex;
@@ -128,5 +128,3 @@ body {
 #icon_send_message {
     color: #e4e2e2;
 }
-
-
