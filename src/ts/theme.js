@@ -1,5 +1,7 @@
 const iconBot = document.querySelector("#icon_bot");
 const changeTheme = document.querySelector("#icon_change_theme");
+const chatBot = document.querySelectorAll(".chat_bot");
+const chatUser = document.querySelectorAll(".chat_user");
 ;
 let isThemeDark = false;
 class Theme {
@@ -20,6 +22,7 @@ class Theme {
         iconBot.src = 'assets/icons/tecnologia.png';
         changeTheme?.removeAttribute("class");
         changeTheme?.setAttribute("class", "fa-regular fa-moon moon");
+        chatUser.forEach((chat) => chat.classList.remove("theme_dark"));
     }
     ;
     dark() {
@@ -28,6 +31,7 @@ class Theme {
         iconBot.src = 'assets/icons/tecnologia_light.png';
         changeTheme?.removeAttribute("class");
         changeTheme?.setAttribute("class", "fa-regular fa-sun sun");
+        chatUser.forEach((chat) => chat.classList.add("theme_dark"));
     }
     ;
 }

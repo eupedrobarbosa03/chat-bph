@@ -1,5 +1,9 @@
 const iconBot = document.querySelector<HTMLImageElement>("#icon_bot");
 const changeTheme = document.querySelector<HTMLInputElement>("#icon_change_theme");
+const chatBot = document.querySelectorAll<HTMLDivElement>(".chat_bot")
+const chatUser = document.querySelectorAll<HTMLDivElement>(".chat_user")
+
+if (!localStorage.getItem("theme")) localStorage.setItem("theme", "inactive");
 
 interface Element<T> {
     headerTitle: T;
@@ -28,7 +32,9 @@ class Theme {
         document.body.classList.remove("theme_dark");
         iconBot!.src = 'assets/icons/tecnologia.png';
         changeTheme?.removeAttribute("class");
-        changeTheme?.setAttribute("class", "fa-regular fa-moon moon")
+        changeTheme?.setAttribute("class", "fa-regular fa-moon moon");
+        chatUser.forEach((chat) => chat.classList.remove("theme_dark"));
+        localStorage.setItem("theme", "");
     };
 
     public dark(): void {
@@ -36,12 +42,22 @@ class Theme {
         document.body.classList.add("theme_dark");
         iconBot!.src = 'assets/icons/tecnologia_light.png'
         changeTheme?.removeAttribute("class");
-        changeTheme?.setAttribute("class", "fa-regular fa-sun sun")
+        changeTheme?.setAttribute("class", "fa-regular fa-sun sun");
+        chatUser.forEach((chat) => chat.classList.add("theme_dark"));
+        localStorage.setItem("theme", "active")
     };
+
+    public themeStorage(): void {
+        const storage = localStorage.getItem("theme");
+        if (!storage) return;
+        storage
+    };
+
 };
 
+const theme = new Theme();
+
 changeTheme?.addEventListener("click", () => {
-    const theme = new Theme();
     isThemeDark = !isThemeDark;
     isThemeDark ? theme.dark() : theme.light()
 });
