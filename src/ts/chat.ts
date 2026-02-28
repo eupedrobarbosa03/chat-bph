@@ -78,11 +78,11 @@ class Chat {
         newChat.classList.add("chat_config");
         const textChat = document.createElement("p");
         if (typeChat === "chat_bot") {
-            textChat.innerHTML = '. . .'
+            textChat.innerHTML = 'digitando...'
             setTimeout(() => {            
                 textChat.innerHTML = `${message}`;
                 this.scrollToBottom();
-            }, 1000);
+            }, this.pendingMessages.length + 1000);
         };
         if (typeChat === "chat_user") textChat.innerHTML = message;
         newChat.appendChild(textChat);
@@ -107,7 +107,7 @@ class Chat {
             case "+comandos":
                 this.pendingMessages.push(
                     `<strong>Lista de comandos disponíveis e suas funções:</strong>`,
-                    `+comandos: Lista todos os comandos disponíveis.<br>+ajuda: Mostra o tutorial completo para ensinar a mim.<br>+projetos: Lista todos os projetos do meu criador.<br>+ensinamentos: Lista todos os ensinamentos que você me ensinou.<br>+pedro: Comando exclusivo para falar sobre meu criador.`
+                    `<strong>+comandos:</strong> Lista todos os comandos disponíveis.<br><strong>+ajuda:</strong> Mostra o tutorial completo para ensinar a mim.<br><strong>+projetos:</strong> Lista todos os projetos do meu criador.<br><strong>+ensinamentos:</strong> Lista todos os ensinamentos que você me ensinou.<br><strong>+pedro:</strong> Comando exclusivo para falar sobre meu criador.`
                 )
                 break;
             case "+ensinamentos":
@@ -137,13 +137,26 @@ class Chat {
                 );
                 break;
             case "+projetos":
+                this.pendingMessages.push(
+                    `<strong>Projetos desenvolvidos por Pedro Henrique.</strong>.`,
+                    `Portfólio, bank-ts, generator password 2, postal code brazil, student situation, academy control, generator boxshadow, expense management, to-do list, simple calculator, flebox, password generator, controle produtos e chatbot.`,
+                    `E eu, né? Fiquei seperado dos outros porque sou o favorito dele  (chat-bph).`,
+                    `<strong>Total de projetos: </strong>15.`,
+                    `Quer saber sobre cada um? Só mandar uma mensagem aqui perguntando sobre. Se quer saber exclusivamente sobre mim, pergunte algo como "quero saber sobre você".`
+                );
                 break;
             case "+pedro":
+                this.pendingMessages.push(
+                    `<strong>Pedro Henrique</strong> é um jovem rapaz de apenas 19 anos apaixonado por tecnologia, especificamente no mundo dos códigos. Ele tem um grande objetivo de se tornar um desenvolvedor <strong>full-stack</strong>, entretanto,o primeiro passo é se tornar um deseolvedor <strong>front-end</strong> completo.`,
+                    `Atualmente, Pedro Henrique possui conhecimento em html, css, javascript, typescript e react.`,
+                    `A sua carreira está seguindo um bom caminho, que assim continue. Ele está graduando em <strong>análise e desenvolvimento de sistemas</strong> na Estácio.`,
+                    `Além da graduação, Pedro obtém cursos em instituições como <strong>Alura</strong> e <strong>udemy</strong>.`
+                )
                 break;
             default:
+                console.warn(`😊`)
                 break;
         };
-
     };
 
     private botTeachings(text: string) {
@@ -334,7 +347,7 @@ class Chat {
     };
 
     general(message: string) {
-        if (messageUser?.value.trim() === "" || messagesAll.bot.length < 4) return;
+        if (messageUser?.value.trim() === "") return;
         this.handleChat("chat_user", message);
         messageSend?.classList.add("noSend");
         this.pendingMessages = [];
@@ -358,7 +371,7 @@ class Chat {
 };
 
 const chatExe = new Chat();
-chatExe.botInitialMessages();
+// chatExe.botInitialMessages();
 
 messageSend!.addEventListener("click", () => {
     const message = messageUser!.value;
