@@ -1,5 +1,0 @@
-bot name: CHAT BPH
-funcionalidades: interagir com o usuário atráves de escolhas do usuário com relação no que o mesmo quer saber sobre o criador do bot, eu. Saber sobre o criador, sobre seus projetos, listar projetos, etc.
-
-            <div class="chat_bot chat_config"><p>oi</p></div>
-            <div class="chat_user chat_config"><p>oi</p></div>
