@@ -13,7 +13,7 @@ const regExpMessages = {
     genericMessages: /belezinha|beleza|boa noit[e]+|bom di[a]+|boa tard[e]+|prazer|muito bem|opa|ol[áa]|(^o[i]+e?)|bem|estou bem|est[áa] tudo bem comigo|tudo bem comigo|estou feliz|estou muito bem/gim,
     projects: /(ban(k|c)o?( ?|-?)t?s?)|(portf[óo]lio)|(generator 2|password 2|generator password 2|passsowrd generator 2|generator 2|password 2)|(postal|postal code|postal code brazil|brazil code|cep)|(boxshadow|generator boxshadow|generator shadow|generator box)|(expense|expense management|management)|(todo list|to-do list|lista tarefas|to-do|list)|(calculadora|calculator|simple calculator|calculadora simples)|(flebox|flex|boxflex)|(generator ?1?|password ?1?|generator password)|(student ?(situation)?)|(controle de produtos|produtos controle)|(academy ?(control)?|control academy)|(chat ?-?bot|bot ?-?chat)/gim,
     teaching: /#[a-zéãóáàèêâ0-9\,\ \-\!\?\.]+#/gim,
-    commands: /^\+(comandos|ajuda|projetos|ensinamentos|pedro)$/gim
+    commands: /^\+(comandos|ajuda|projetos|ensinamentos|pedro|links|reset)$/gim
 };
 const regExpAll = new RegExp(`${regExpMessages.aboutBot.source}|${regExpMessages.genericMessages.source}|${regExpMessages.projects.source}|${regExpMessages.teaching.source}|${regExpMessages.commands.source}`);
 const messagesAll = { bot: [], user: [] };
@@ -88,7 +88,7 @@ class Chat {
             return;
         switch (found[0]) {
             case "+comandos":
-                this.pendingMessages.push(`<strong>Lista de comandos disponíveis e suas funções:</strong>`, `<strong>+comandos:</strong> Lista todos os comandos disponíveis.<br><strong>+ajuda:</strong> Mostra o tutorial completo para ensinar a mim.<br><strong>+projetos:</strong> Lista todos os projetos do meu criador.<br><strong>+ensinamentos:</strong> Lista todos os ensinamentos que você me ensinou.<br><strong>+pedro:</strong> Comando exclusivo para falar sobre meu criador.`);
+                this.pendingMessages.push(`<strong>Lista de comandos disponíveis e suas funções:</strong>`, `<strong>+comandos:</strong> Lista todos os comandos disponíveis.<br><strong>+ajuda:</strong> Mostra o tutorial completo para ensinar a mim.<br><strong>+projetos:</strong> Lista todos os projetos do meu criador.<br><strong>+ensinamentos:</strong> Lista todos os ensinamentos que você me ensinou.<br><strong>+pedro:</strong> Comando exclusivo para falar sobre meu criador.<br><strong>+links:</strong> Lista de link's: repositório, linkedin, portfólio, etc<br><strong>+reset:</strong> Apaga todos os ensinamentos.`);
                 break;
             case "+ensinamentos":
                 const teachings = storage.list();
@@ -110,6 +110,13 @@ class Chat {
                 break;
             case "+pedro":
                 this.pendingMessages.push(`<strong>Pedro Henrique</strong> é um jovem rapaz de apenas 19 anos apaixonado por tecnologia, especificamente no mundo dos códigos. Ele tem um grande objetivo de se tornar um desenvolvedor <strong>full-stack</strong>, entretanto,o primeiro passo é se tornar um deseolvedor <strong>front-end</strong> completo.`, `Atualmente, Pedro Henrique possui conhecimento em html, css, javascript, typescript e react.`, `A sua carreira está seguindo um bom caminho, que assim continue. Ele está graduando em <strong>análise e desenvolvimento de sistemas</strong> na Estácio.`, `Além da graduação, Pedro obtém cursos em instituições como <strong>Alura</strong> e <strong>udemy</strong>.`);
+                break;
+            case "+links":
+                this.pendingMessages.push(`<strong>Portfólio: </strong><a href="https://eupedrobarbosa03.github.io/portfolio" target="_blank">https://eupedrobarbosa03.github.io/portfolio</a><br><br><strong>Linkedin: </strong><a href="https://www.linkedin.com/in/eupedrobarbosa/" target="_blank">https://www.linkedin.com/in/eupedrobarbosa/</a><br><br><strong>Github: </strong><a href="https://github.com/eupedrobarbosa03" target="_blank">https://github.com/eupedrobarbosa03</a><br><br><strong>Repositório chat-bph: </strong><a href="https://github.com/eupedrobarbosa03/chat-bph" target="_blank">https://github.com/eupedrobarbosa03/chat-bph</a>`);
+                break;
+            case "+reset":
+                localStorage.setItem("teachings", JSON.stringify([]));
+                this.pendingMessages.push(`Ensinamentos apagados.`);
                 break;
             default:
                 console.warn(`😊`);
