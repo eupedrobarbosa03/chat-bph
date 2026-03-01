@@ -1,4 +1,4 @@
-## GENERATOR PASSWORD 2 📌
+## CHAT-BPH 📌
 [👮] **Autor**: Pedro Henrique.  
 [📅] **Data**: 28/02/2026.  
 [📌] **Tipo**: Chat adaptativo e interativo.  
@@ -32,3 +32,10 @@ Chat-bph é um chat desenvolvido para falar sobre mim. O chat possui diversas fu
 **[✅] Mensagens** relacionadas aos projetos dos criadores serão exibidas de acordo com ordem de favoritismo do criador.
 **[✅] Mensagem** sobre o próprio apresentando-se.
 **[✅] Outras funcionalidades** podem ser vistas no chat.  
+
+---
+
+versões **
+
+v1.0 (lançamento do projeto)
+v2.0 (novos comandos: +links e +reset)
