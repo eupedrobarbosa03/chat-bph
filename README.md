@@ -35,7 +35,7 @@ Chat-bph é um chat desenvolvido para falar sobre mim. O chat possui diversas fu
 
 ---
 
-** versões **
+**versões**
 
 v1.0 (lançamento do projeto)  
 v2.0 (novos comandos: +links e +reset)
