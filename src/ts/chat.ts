@@ -45,10 +45,12 @@ class Chat {
     private pendingMessages: string[]
     private attemptToTeachMessagesPredefined: boolean;
     private teachingCompleted: boolean;
+    public enterKey: string;
     constructor() {
         this.pendingMessages = [];
         this.attemptToTeachMessagesPredefined = false;
         this.teachingCompleted = false;
+        this.enterKey = "Enter";
     };
 
     private responseTimeWithFor(array: string[]): void {
@@ -70,6 +72,7 @@ class Chat {
     private notSpam(): void {
         setTimeout(() => {
             messageSend!.classList.remove("noSend");
+            this.enterKey = "Enter";
         }, this.pendingMessages.length * 2000 + 500);
     };
 
@@ -363,6 +366,7 @@ class Chat {
         messageUser!.value = '';
         this.handleChat("chat_user", message);
         messageSend?.classList.add("noSend");
+        this.enterKey = "";
         this.pendingMessages = [];
         if (this.showTeachings(message)) {
             this.responseTimeWithFor(this.pendingMessages)
@@ -394,7 +398,7 @@ messageSend!.addEventListener("click", () => {
 
 
 window.addEventListener("keyup", (e) => {
-    if (e.key === "Enter") {
+    if (e.key === chatExe.enterKey) {
         const message = messageUser!.value;
         chatExe.general(message)
         theme.applyingThemeChatUser();
