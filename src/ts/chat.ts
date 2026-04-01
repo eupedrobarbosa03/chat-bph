@@ -25,9 +25,9 @@ interface Teaching {
 const regExpMessages: RegExpMessage = {
     aboutBot: /voc[êe] sobre|sobre voc[êe]|quero saber sobre voc[êe]|quem criou voc[êe]/gim,
     genericMessages: /belezinha|beleza|boa noit[e]+|bom di[a]+|boa tard[e]+|prazer|muito bem|opa|ol[áa]|(^o[i]+e?)|bem|estou bem|est[áa] tudo bem comigo|tudo bem comigo|estou feliz|estou muito bem/gim,
-    projects: /(ban(k|c)o?( ?|-?)t?s?)|(portf[óo]lio)|(generator 2|password 2|generator password 2|passsowrd generator 2|generator 2|password 2)|(postal|postal code|postal code brazil|brazil code|cep)|(boxshadow|generator boxshadow|generator shadow|generator box)|(expense|expense management|management)|(todo list|to-do list|lista tarefas|to-do|list)|(calculadora|calculator|simple calculator|calculadora simples)|(flebox|flex|boxflex)|(generator 1|password ?1?|generator password)|(student ?(situation)?)|(controle de produtos|produtos controle)|(academy ?(control)?|control academy)|(chat ?-?bot|bot ?-?chat)/gim,
+    projects: /(ban(k|c)o?( ?|-?)t?s?)|(portf[óo]lio)|(generator 2|password 2|generator password 2|passsowrd generator 2|generator 2|password 2)|(postal|postal code|postal code brazil|brazil code|cep)|(boxshadow|generator boxshadow|generator shadow|generator box)|(expense|expense management|management)|(todo list|to-do list|lista tarefas|to-do|list)|(calculadora|calculator|simple calculator|calculadora simples)|(flebox|flex|boxflex)|(generator 1|generator password 1|password generator 1)|(student ?(situation)?)|(controle de produtos|produtos controle)|(academy ?(control)?|control academy)|(chat ?-?bot|bot ?-?chat)/gim,
     teaching: /#[a-zéãóáàèêâ0-9\,\ \-\!\?\.]+#/gim,
-    commands: /^\+(comandos|ajuda|projetos|ensinamentos|pedro|links|reset)$/gim
+commands: /^\+(comandos|ajuda|projetos|ensinamentos|pedro|links|reset)$/gim
 };
 
 const regExpAll = new RegExp(`${regExpMessages.aboutBot.source}|${regExpMessages.genericMessages.source}|${regExpMessages.projects.source}|${regExpMessages.teaching.source}|${regExpMessages.commands.source}`);
@@ -152,7 +152,7 @@ class Chat {
                 break;
             case "+pedro":
                 this.pendingMessages.push(
-                    `<strong>Pedro Henrique</strong> é um jovem rapaz de apenas 19 anos apaixonado por tecnologia, especificamente no mundo dos códigos. Ele tem um grande objetivo de se tornar um desenvolvedor <strong>full-stack</strong>, entretanto,o primeiro passo é se tornar um deseolvedor <strong>front-end</strong> completo.`,
+                    `<strong>Pedro Henrique</strong> é um jovem rapaz de 20 anos apaixonado por tecnologia, no mundo dos códigos. Ele tem um grande objetivo de se tornar um desenvolvedor <strong>full-stack</strong>, entretanto,o primeiro passo é se tornar um deseolvedor <strong>front-end</strong> completo.`,
                     `Atualmente, Pedro Henrique possui conhecimento em html, css, javascript, typescript e react.`,
                     `A sua carreira está seguindo um bom caminho, que assim continue. Ele está graduando em <strong>análise e desenvolvimento de sistemas</strong> na Estácio.`,
                     `Além da graduação, Pedro obtém cursos em instituições como <strong>Alura</strong> e <strong>udemy</strong>.`

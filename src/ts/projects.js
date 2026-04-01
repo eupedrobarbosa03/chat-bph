@@ -125,7 +125,7 @@ export const projects = [
     },
     {
         title: "generator password",
-        wordsReference: /generator ?1?|password ?1?|generator password/gim,
+        wordsReference: /generator password 1|password generator 1|generator 1/gim,
         about: [
             `Generator Password é um gerador de senhas segura com um sistema simples de escolha.`,
             `Ei, sabia que existe a segunda versão? Sim, o generator password 2.`
