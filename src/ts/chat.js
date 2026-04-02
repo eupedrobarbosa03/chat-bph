@@ -21,11 +21,13 @@ class Chat {
     pendingMessages;
     attemptToTeachMessagesPredefined;
     teachingCompleted;
+    permissionSendMessage;
     enterKey;
     constructor() {
         this.pendingMessages = [];
         this.attemptToTeachMessagesPredefined = false;
         this.teachingCompleted = false;
+        this.permissionSendMessage = false;
         this.enterKey = "Enter";
     }
     ;
@@ -50,6 +52,7 @@ class Chat {
         setTimeout(() => {
             messageSend.classList.remove("noSend");
             this.enterKey = "Enter";
+            this.permissionSendMessage = true;
         }, this.pendingMessages.length * 2000 + 500);
     }
     ;
@@ -196,9 +199,9 @@ class Chat {
             "Olha, mas vai com calma! Eu posso não entender certas frases ou palavras. E é por isso que você me ensinar. ⭐",
             `Só mais uma coisa, digite <strong>+comandos</strong> para ver todos os comandos disponíveis.`
         ];
-        setTimeout(() => {
-            this.responseTimeWithFor(initialMessages);
-        }, 1000);
+        this.pendingMessages.push(...initialMessages);
+        this.responseTimeWithFor(this.pendingMessages);
+        this.notSpam();
     }
     ;
     projectsMessages(text) {
@@ -293,7 +296,7 @@ class Chat {
     }
     ;
     general(message) {
-        if (messageUser?.value.trim() === "" || messagesAll.bot.length < 4)
+        if (messageUser?.value.trim() === "" || !this.permissionSendMessage)
             return;
         messageUser.value = '';
         this.handleChat("chat_user", message);

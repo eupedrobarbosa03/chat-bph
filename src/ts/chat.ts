@@ -45,11 +45,13 @@ class Chat {
     private pendingMessages: string[]
     private attemptToTeachMessagesPredefined: boolean;
     private teachingCompleted: boolean;
+    private permissionSendMessage: boolean;
     public enterKey: string;
     constructor() {
         this.pendingMessages = [];
         this.attemptToTeachMessagesPredefined = false;
         this.teachingCompleted = false;
+        this.permissionSendMessage = false;
         this.enterKey = "Enter";
     };
 
@@ -73,6 +75,7 @@ class Chat {
         setTimeout(() => {
             messageSend!.classList.remove("noSend");
             this.enterKey = "Enter";
+            this.permissionSendMessage = true;
         }, this.pendingMessages.length * 2000 + 500);
     };
 
@@ -244,7 +247,7 @@ class Chat {
         return true;
     };
 
-    botInitialMessages(): void {
+    botInitialMessages() {
 
         const initialMessages: string[] = [
             "Olá, tudo bem?! 😊",
@@ -253,9 +256,9 @@ class Chat {
             `Só mais uma coisa, digite <strong>+comandos</strong> para ver todos os comandos disponíveis.`
         ];
 
-        setTimeout(() => {
-            this.responseTimeWithFor(initialMessages);
-        }, 1000)
+        this.pendingMessages.push(...initialMessages);
+        this.responseTimeWithFor(this.pendingMessages);
+        this.notSpam();
 
     };
 
@@ -362,7 +365,7 @@ class Chat {
     };
 
     general(message: string) {
-        if (messageUser?.value.trim() === "" || messagesAll.bot.length < 4) return;
+        if (messageUser?.value.trim() === "" || !this.permissionSendMessage) return;
         messageUser!.value = '';
         this.handleChat("chat_user", message);
         messageSend?.classList.add("noSend");
