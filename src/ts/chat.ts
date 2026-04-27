@@ -163,7 +163,7 @@ class Chat {
                 break;
             case "+links":
                 this.pendingMessages.push(
-                    `<strong>Portfólio: </strong><a href="https://eupedrobarbosa03.github.io/portfolio" target="_blank">https://eupedrobarbosa03.github.io/portfolio</a><br><br><strong>Linkedin: </strong><a href="https://www.linkedin.com/in/eupedrobarbosa/" target="_blank">https://www.linkedin.com/in/eupedrobarbosa/</a><br><br><strong>Github: </strong><a href="https://github.com/eupedrobarbosa03" target="_blank">https://github.com/eupedrobarbosa03</a><br><br><strong>Repositório chat-bph: </strong><a href="https://github.com/eupedrobarbosa03/chat-bph" target="_blank">https://github.com/eupedrobarbosa03/chat-bph</a>`
+                    `<a href="https://eupedrobarbosa03.github.io/portfolio" target="_blank">Porfólio</a> | <a href="https://www.linkedin.com/in/eupedrobarbosa/" target="_blank">Linkedin</a> | <a href="https://github.com/eupedrobarbosa03" target="_blank">Gitbub</a> | <a href="https://github.com/eupedrobarbosa03/chat-bph" target="_blank">Chat-bph</a>`
                 )
                 break;
             case "+reset":
