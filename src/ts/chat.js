@@ -74,7 +74,6 @@ class Chat {
         newChat.appendChild(textChat);
         chat?.appendChild(newChat);
         this.scrollToBottom();
-        theme.applyingThemeChatUser();
     }
     ;
     messageNotUnderstood(text) {
@@ -197,7 +196,7 @@ class Chat {
             "Olá, tudo bem?! 😊",
             "Sou um <strong>chat desenvolvido</strong> para falar sobre meu criador, posso falar sobre os projetos dele, linguagens utilizadas, etc. Ah, eu posso falar sobre mim também!",
             "Olha, mas vai com calma! Eu posso não entender certas frases ou palavras. E é por isso que você me ensinar. ⭐",
-            `Só mais uma coisa, digite <strong>+comandos</strong> para ver todos os comandos disponíveis.`
+            `Só mais duas coisinhas, digite <strong>+comandos</strong> para ver todos os comandos disponíveis e clique duas vezes na tela para alterar o tema.`
         ];
         this.pendingMessages.push(...initialMessages);
         this.responseTimeWithFor(this.pendingMessages);
@@ -329,12 +328,10 @@ chatExe.botInitialMessages();
 messageSend.addEventListener("click", () => {
     const message = messageUser.value;
     chatExe.general(message);
-    theme.applyingThemeChatUser();
 });
 window.addEventListener("keyup", (e) => {
     if (e.key === chatExe.enterKey) {
         const message = messageUser.value;
         chatExe.general(message);
-        theme.applyingThemeChatUser();
     }
 });
