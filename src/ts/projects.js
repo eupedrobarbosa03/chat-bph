@@ -164,16 +164,16 @@ export const projects = [
         ]
     },
     {
-        title: "academy control",
-        wordsReference: /academy ?(control)?|control academy/gim,
+        title: "academy",
+        wordsReference: /academy|academia/gim,
         about: [
             `Academy control é uma aplicação que permite agendamentos de treinos, registro de alunos e instrutores.`,
             `Pena que sou um bot, caso contrário eu iria marcar meus treinos lá. 🤣.`
         ],
-        languages: "O projeto foi desenvolvido em html, css e javascript.",
+        languages: "O projeto foi desenvolvido em html, css e typescript.",
         link: [
-            `Repositório: <a target="_blank" href="https://github.com/eupedrobarbosa03/academy-control">https://github.com/eupedrobarbosa03/academy-control<a/>.`,
-            `Deploy: <a target="_blank" href="https://eupedrobarbosa03.github.io/academy-control/">https://eupedrobarbosa03.github.io/academy-control/</a>.`
+            `Repositório: <a target="_blank" href="https://github.com/eupedrobarbosa03/academy">https://github.com/eupedrobarbosa03/academy<a/>.`,
+            `Deploy: <a target="_blank" href="https://eupedrobarbosa03.github.io/academy/">https://eupedrobarbosa03.github.io/academy/</a>.`
         ]
     },
     {
