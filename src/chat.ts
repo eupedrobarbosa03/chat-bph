@@ -1,6 +1,5 @@
 import { projects } from "./projects.js";
 import { storage } from "./storage.js";
-import { theme } from "./theme.js";
 
 if (!localStorage.getItem("teachings"))
     localStorage.setItem("teachings", JSON.stringify([]));
