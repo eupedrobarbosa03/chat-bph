@@ -10,7 +10,7 @@ const messageSend = document.querySelector("#container_send");
 const regExpMessages = {
     aboutBot: /voc[êe] sobre|sobre voc[êe]|quero saber sobre voc[êe]|quem criou voc[êe]/gim,
     genericMessages: /belezinha|beleza|boa noit[e]+|bom di[a]+|boa tard[e]+|prazer|muito bem|opa|ol[áa]|(^o[i]+e?)|bem|estou bem|est[áa] tudo bem comigo|tudo bem comigo|estou feliz|estou muito bem/gim,
-    projects: /(ban(k|c)o?( ?|-?)t?s?)|(portf[óo]lio)|(generator 2|password 2|generator password 2|passsowrd generator 2|generator 2|password 2)|(postal|postal code|postal code brazil|brazil code|cep)|(boxshadow|generator boxshadow|generator shadow|generator box)|(expense|expense management|management)|(todo list|to-do list|lista tarefas|to-do|list)|(calculadora|calculator|simple calculator|calculadora simples)|(flebox|flex|boxflex)|(generator 1|generator password 1|password generator 1)|(student ?(situation)?)|(controle de produtos|produtos controle)|(academy|academia)|(chat ?-?bot|bot ?-?chat)/gim,
+    projects: /(ban(k|c)o?( ?|-?)t?s?)|(portf[óo]lio)|(generator 2|password 2|generator password 2|passsowrd generator 2|generator 2|password 2)|(postal|postal code|postal code brazil|brazil code|cep)|(boxshadow|generator boxshadow|generator shadow|generator box)|(calculadora|calculator|simple calculator|calculadora simples)|(academy|academia)/gim,
     teaching: /#[a-zéãóáàèêâ0-9\,\ \-\!\?\.]+#/gim,
     commands: /^\+(comandos|ajuda|projetos|ensinamentos|pedro|links|reset)$/gim
 };
@@ -110,7 +110,7 @@ class Chat {
                 this.pendingMessages.push(`Você usou o comando <strong>+ajuda</strong>.`, `Essa ajuda é para você entender o sistema de ensinamentos.`, `<strong>Tutorial:</strong> Seu ensinamento deve possuir dois identificadores, o #. Há dois modelos de ensinamentos.`, `<strong>Modelo Simples: </strong> #título do ensinamento# e #ensinamentos#`, `<strong>Modelo Avançado:</strong> #título do ensinamento# e #ensinamento-ensinamento-ensinamento#`, `A grande diferença é que no modelo simples não há separadores (-), e no modelo avançado possuem um ou mais.`, `<strong>Exemplo modelos simples:</strong> chat, quando eu falar #teste# você deve falar #pedro é um grande amigo.#`, `<strong>Exemplo modelos avançado</strong>: chat, quando eu falar #teste# você diz #teste-teste-teste#.`, `Aceito letras, números, espaços, ponto (.), vírgula (,), interrogação e exclamação.`);
                 break;
             case "+projetos":
-                this.pendingMessages.push(`<strong>Projetos desenvolvidos por Pedro Henrique.</strong>.`, `Portfólio, bank-ts, generator password 2, postal code brazil, student situation, academy control, generator boxshadow, expense management, to-do list, simple calculator, flebox, password generator, controle produtos e chatbot.`, `E eu, né? Fiquei seperado dos outros porque sou o favorito dele  (chat-bph).`, `<strong>Total de projetos: </strong>15.`, `Quer saber sobre cada um? Só mandar uma mensagem aqui perguntando sobre. Se quer saber exclusivamente sobre mim, pergunte algo como "quero saber sobre você".`);
+                this.pendingMessages.push(`<strong>Projetos desenvolvidos por Pedro Henrique.</strong>.`, `Portfólio, bank-ts, generator password 2, postal code brazil, academy, generator boxshadow, calculator.`, `<strong>Total de projetos: </strong>8.`, `Quer saber sobre cada um? Só mandar uma mensagem aqui perguntando sobre. Se quer saber exclusivamente sobre mim, pergunte algo como "quero saber sobre você".`);
                 break;
             case "+pedro":
                 this.pendingMessages.push(`<strong>Pedro Henrique</strong> é um jovem rapaz de 20 anos apaixonado por tecnologia, no mundo dos códigos. Ele tem um grande objetivo de se tornar um desenvolvedor <strong>full-stack</strong>, entretanto,o primeiro passo é se tornar um deseolvedor <strong>front-end</strong> completo.`, `Atualmente, Pedro Henrique possui conhecimento em html, css, javascript, typescript e react.`, `A sua carreira está seguindo um bom caminho, que assim continue. Ele está graduando em <strong>análise e desenvolvimento de sistemas</strong> na Estácio.`, `Além da graduação, Pedro obtém cursos em instituições como <strong>Alura</strong> e <strong>udemy</strong>.`);
@@ -192,10 +192,10 @@ class Chat {
     ;
     botInitialMessages() {
         const initialMessages = [
-            "Olá, tudo bem?! 😊",
-            "Sou um <strong>chat desenvolvido</strong> para falar sobre meu criador, posso falar sobre os projetos dele, linguagens utilizadas, etc. Ah, eu posso falar sobre mim também!",
-            "Olha, mas vai com calma! Eu posso não entender certas frases ou palavras. E é por isso que você me ensinar. ⭐",
-            `Só mais duas coisinhas, digite <strong>+comandos</strong> para ver todos os comandos disponíveis e clique duas vezes na tela para alterar o tema.`
+            `Olá, tudo bem?! 💪.`,
+            `Prazer! Sou um chat adaptativo e interativo para falar sobre meu criador — <a href="https://github.com/eupedrobarbosa03" target="_blank">Pedro Henrique</a>.`,
+            `Você pode perguntar sobre mim, meu criador e sobre os projetos desenvolvidos por ele. Além disso você também pode me ensinar a falar qualquer coisa que eu já não tenha aprendido com o meu criador.`,
+            `Digite +comandos para ver todos os comandos disponíveis.`
         ];
         this.pendingMessages.push(...initialMessages);
         this.responseTimeWithFor(this.pendingMessages);
