@@ -38,7 +38,7 @@ export const projects: Project[] = [
         title: "generator password 2",
         wordsReference: /generator 2|password 2|generator password 2|passsowrd generator 2|generator 2|password 2/gim,
         about: [
-            `O generator password 2 é uma segunda versão do <strong>generator password</strong> com funcionalidades de escolher os tipos de caracteres.`,
+            `O generator password 2 é uma segunda versão de um projeto de gerador de senhas. A primeira versão já foi desabilitada e não há como ter mais acesso.`,
             `Vamos ao ponto, generator password 2 é uma gerador de senhas fortes e seguras.`,
             `Quer senha forte e segura? Gere nessa aplicação incrível. ⭐`
         ],
@@ -75,34 +75,6 @@ export const projects: Project[] = [
         ]
     },
     {
-        title: "expense management",
-        wordsReference: /expense|expense management|management/gim,
-        about: [
-            `Expense management é uma aplicação onde é possível gerenciar gastos. Você pode definir a quantidade de dinheiro, pode apagar, entre outros.`,
-            `Hahaha, eu vou até usar essa aplicação! 😹`,
-            `Brincadeira, viu?! 😁`
-        ],
-        languages: "O projeto foi desenvolvido em html, css e react.",
-        link: [
-            `Repositório: <a target="_blank" href="https://github.com/eupedrobarbosa03/expense-management">https://github.com/eupedrobarbosa03/expense-management<a/>.`,
-            `Deploy: <a target="_blank" href="https://eupedrobarbosa03.github.io/expense-management/">https://eupedrobarbosa03.github.io/expense-management/</a>.`
-        ]
-    },
-    {
-        title: "to-do list",
-        wordsReference: /todo list|to-do list|lista tarefas|to-do|list/gim,
-        about: [
-            `To-do list é uma aplicação onde é possível controlar nosssas tarefas diárias. `,
-            `É possível criar, editar e remover tarefas de forma dinâmica.`,
-            `Quer gerenciar suas tarefas? Recomendo fortemente essa aplicação.`
-        ],
-        languages: "O projeto foi desenvolvido em html, css e javascript.",
-        link: [
-            `Repositório: <a target="_blank" href="https://github.com/eupedrobarbosa03/todo-list">https://github.com/eupedrobarbosa03/todo-list<a/>.`,
-            `Deploy: <a target="_blank" href="https://github.com/eupedrobarbosa03/todo-list">https://github.com/eupedrobarbosa03/todo-list</a>.`
-        ]
-    },
-    {
         title: "simple calculator",
         wordsReference: /calculadora|calculator|simple calculator|calculadora simples/gim,
         about: [
@@ -117,60 +89,6 @@ export const projects: Project[] = [
         ]
     },
     {
-        title: "flebox",
-        wordsReference: /flebox|flex|boxflex/gim,
-        about: [
-            `Flebox é uma página que apresenta uma empresa fictícia (Flebox) que desenvolve sites responsivos e seguros.`,
-            `Acho que vou chamar a flexbox para criar um site responsivo só meu. 🤣`,
-            `Brincadeira! Não troco o Pedro por nada. 😍`
-        ],
-        languages: "O projeto foi desenvolvido em html, css e javascript.",
-        link: [
-            `Repositório: <a target="_blank" href="https://github.com/eupedrobarbosa03/flexbox-page">https://github.com/eupedrobarbosa03/flexbox-page<a/>.`,
-            `Deploy: <a target="_blank" href="https://eupedrobarbosa03.github.io/flexbox-page/">https://eupedrobarbosa03.github.io/flexbox-page/</a>.`
-        ]
-    },
-    {
-        title: "generator password",
-        wordsReference: /generator password 1|password generator 1|generator 1/gim,
-        about: [
-            `Generator Password é um gerador de senhas segura com um sistema simples de escolha.`,
-            `Ei, sabia que existe a segunda versão? Sim, o generator password 2.`
-        ],
-        languages: "O projeto foi desenvolvido em html, css e javascript.",
-        link: [
-            `Repositório: <a target="_blank" href="https://eupedrobarbosa03.github.io/password-generator/">https://eupedrobarbosa03.github.io/password-generator/<a/>.`,
-            `Deploy: <a target="_blank" href="https://eupedrobarbosa03.github.io/password-generator/">https://eupedrobarbosa03.github.io/password-generator/</a>.`
-        ]
-    },
-    {
-        title: "student situation",
-        wordsReference: /student ?(situation)?/gim,
-        about: [
-            `Student situation é uma aplicação que permite inserirmos alunos com notas para ver a situação final dos mesmos.`,
-            `Eu tirei 9.5 em typescript no 1º bimestre, 9.3 em javascript no 2º bimestre, 9.1 em HTML no 3ª bimestre e 9.3 em css no 4º bimestre. Será que fui bem? 🤔`,
-            `Acho que passei, hahahahaha!`
-        ],
-        languages: "O projeto foi desenvolvido em html, css e javascript.",
-        link: [
-            `Repositório: <a target="_blank" href="https://github.com/eupedrobarbosa03/student-situation">https://github.com/eupedrobarbosa03/student-situation<a/>.`,
-            `Deploy: <a target="_blank" href="https://eupedrobarbosa03.github.io/student-situation/">https://eupedrobarbosa03.github.io/student-situation/</a>.`
-        ]
-    },
-    {
-        title: "controle de produtos",
-        wordsReference: /controle de produtos|produtos controle/gim,
-        about: [
-            `"Controle de produtos" é uma aplicação que permite o gerenciamento de produtos. É possível adicionar um produto, editar e remover.`,
-            `Ah, todas as alterações são enviadas em tempo real.`
-        ],
-        languages: "O projeto foi desenvolvido em html, css e javascript.",
-        link: [
-            `Repositório: <a target="_blank" href="https://github.com/eupedrobarbosa03/controle-produtos">https://github.com/eupedrobarbosa03/controle-produtos<a/>.`,
-            `Deploy: <a target="_blank" href="https://eupedrobarbosa03.github.io/controle-produtos/">https://eupedrobarbosa03.github.io/controle-produtos/</a>.`
-        ]
-    },
-    {
         title: "academy",
         wordsReference: /academy|academia/gim,
         about: [
@@ -181,20 +99,6 @@ export const projects: Project[] = [
         link: [
             `Repositório: <a target="_blank" href="https://github.com/eupedrobarbosa03/academy">https://github.com/eupedrobarbosa03/academy<a/>.`,
             `Deploy: <a target="_blank" href="https://eupedrobarbosa03.github.io/academy/">https://eupedrobarbosa03.github.io/academy/</a>.`
-        ]
-    },
-    {
-        title: "chatbot",
-        wordsReference: /chat ?-?bot|bot ?-?chat/gim,
-        about: [
-            `É simplesmente meu irmão, porém com um propósito distinto. Enquanto ele fala sobre a maioria das linguagens de programação, eu falo de mim e do meu criador.`,
-            `Vou ser sincero, meu criador disse que prefere eu!`,
-            `Brincadeira! 🤓`
-        ],
-        languages: "O projeto foi desenvolvido em html, css e javascript.",
-        link: [
-            `Repositório: <a target="_blank" href="https://github.com/eupedrobarbosa03/chatbot">https://github.com/eupedrobarbosa03/chatbot<a/>.`,
-            `Deploy: <a target="_blank" href="https://eupedrobarbosa03.github.io/chatbot/">https://eupedrobarbosa03.github.io/chatbot/</a>.`
         ]
     }
 ];
