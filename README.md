@@ -26,10 +26,9 @@ Chat-bph é um chat desenvolvido para falar sobre mim. O chat possui diversas fu
 **[✅] Sistema de segurança** para evitar que o chat aprenda coisas que já foram predefinidas.  
 **[✅] Anti-spam** para evitar que o usuário respeite o momento de resposta do chat.  
 **[✅] Ensinamentos** são salvos em localstorage para que o chat lembre.  
-**[✅] Temas** light e dark para alterar o visual e melhorar a visualização e a experiência de usuário.  
 **[✅] "digitando..."**, é isso que o chat mostra quando está digitando.  
-**[✅] Mensagens** relacionadas aos projetos dos criadores serão exibidas de acordo com ordem de favoritismo do criador.
-**[✅] Mensagem** sobre o próprio apresentando-se.
+**[✅] Mensagens** relacionadas aos projetos dos criadores serão exibidas de acordo com ordem de favoritismo do criador.  
+**[✅] Mensagem** sobre o próprio apresentando-se.  
 **[✅] Outras funcionalidades** podem ser vistas no chat.  
 
 ---
