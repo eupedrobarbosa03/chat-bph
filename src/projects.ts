@@ -49,8 +49,8 @@ export const projects: Project[] = [
         ]
     },
     {
-        title: "postal code brazil",
-        wordsReference: /postal|postal code|postal code brazil|brazil code|cep/gim,
+        title: "localiza-cep",
+        wordsReference: /(localiza-cep|localizador cep|cep)/gim,
         about: [
             `O postal code brazil é uma aplicação de consumo de API para retornar informações de localização através de um CEP válido.`,
             `As informações são: o próprio cep, localidade, bairro, região, logradouro, UF e DDD.`,
