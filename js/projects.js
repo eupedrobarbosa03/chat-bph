@@ -42,17 +42,15 @@ export const projects = [
         ]
     },
     {
-        title: "postal code brazil",
-        wordsReference: /postal|postal code|postal code brazil|brazil code|cep/gim,
+        title: "localiza-cep",
+        wordsReference: /(localiza-cep|localizador cep|cep)/gim,
         about: [
-            `O postal code brazil é uma aplicação de consumo de API para retornar informações de localização através de um CEP válido.`,
-            `As informações são: o próprio cep, localidade, bairro, região, logradouro, UF e DDD.`,
-            `Legal, né?! 😊. Vou te passar o link da aplicação já já, tá bom? Vou te passar um cep aqui do lado para você testar, tudo bem? Utilize o cep ao lado para testar: <span id="cep_copy">01310-930</span>`
+            `O LOCALIZACEP é uma aplicação web gratuita e segura para ver informações de um CEP. É possível ver Estado, localidade, UF, DDD, região, logradouro, bairro e o IBGE.`
         ],
-        languages: "O projeto foi desenvolvido em html, css, javascript.",
+        languages: "O projeto foi desenvolvido em html, css e tyescript.",
         link: [
-            `Repositório: <a target="_blank" href="https://github.com/eupedrobarbosa03/postal-code-brazil">https://github.com/eupedrobarbosa03/postal-code-brazil<a/>.`,
-            `Deploy: <a target="_blank" href="https://eupedrobarbosa03.github.io/postal-code-brazil/">https://eupedrobarbosa03.github.io/postal-code-brazil/</a>.`
+            `Repositório: <a target="_blank" href="https://github.com/eupedrobarbosa03/localiza-cep">https://github.com/eupedrobarbosa03/postal-code-brazil<a/>.`,
+            `Deploy: <a target="_blank" href="https://eupedrobarbosa03.github.io/localiza-cep/">https://eupedrobarbosa03.github.io/localiza-cep/</a>.`
         ]
     },
     {

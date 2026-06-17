@@ -10,7 +10,7 @@ const messageSend = document.querySelector("#container_send");
 const regExpMessages = {
     aboutBot: /voc[êe] sobre|sobre voc[êe]|quero saber sobre voc[êe]|quem criou voc[êe]/gim,
     genericMessages: /belezinha|beleza|boa noit[e]+|bom di[a]+|boa tard[e]+|prazer|muito bem|opa|ol[áa]|(^o[i]+e?)|bem|estou bem|est[áa] tudo bem comigo|tudo bem comigo|estou feliz|estou muito bem/gim,
-    projects: /(ban(k|c)o?( ?|-?)t?s?)|(portf[óo]lio)|(generator 2|password 2|generator password 2|passsowrd generator 2|generator 2|password 2)|(postal|postal code|postal code brazil|brazil code|cep)|(boxshadow|generator boxshadow|generator shadow|generator box)|(calculadora|calculator|simple calculator|calculadora simples)|(academy|academia)/gim,
+    projects: /(ban(k|c)o?( ?|-?)t?s?)|(portf[óo]lio)|(generator 2|password 2|generator password 2|passsowrd generator 2|generator 2|password 2)|(localiza-cep|localizador cep|cep)|(boxshadow|generator boxshadow|generator shadow|generator box)|(calculadora|calculator|simple calculator|calculadora simples)|(academy|academia)/gim,
     teaching: /#[a-zéãóáàèêâ0-9\,\ \-\!\?\.]+#/gim,
     commands: /^\+(comandos|ajuda|projetos|ensinamentos|pedro|links|reset)$/gim
 };
