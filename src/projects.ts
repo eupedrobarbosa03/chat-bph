@@ -56,7 +56,7 @@ export const projects: Project[] = [
         ],
         languages: "O projeto foi desenvolvido em html, css e tyescript.",
         link: [
-            `Repositório: <a target="_blank" href="https://github.com/eupedrobarbosa03/localiza-cep">https://github.com/eupedrobarbosa03/postal-code-brazil<a/>.`,
+            `Repositório: <a target="_blank" href="https://github.com/eupedrobarbosa03/localiza-cep">https://github.com/eupedrobarbosa03/localiza-cep<a/>.`,
             `Deploy: <a target="_blank" href="https://eupedrobarbosa03.github.io/localiza-cep/">https://eupedrobarbosa03.github.io/localiza-cep/</a>.`
         ]
     },
