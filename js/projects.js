@@ -54,15 +54,15 @@ export const projects = [
         ]
     },
     {
-        title: "generator boxshadow",
-        wordsReference: /boxshadow|generator boxshadow|generator shadow|generator box/gim,
+        title: "BoxShadow.css",
+        wordsReference: /boxshadow|box-shadow.css|box-shadow/gim,
         about: [
-            `Uma aplicação voltada para o uso desktop para a criação de sombras em tempo real. Útil para o desenvolvimento em css e código em tempo real.`
+            `BoxShadow.css é uma aplicação web gratuita que permite a criação de sombras em tempo real com css. A ideia é voltada para visualização em tempo real com copiagem do código css.`
         ],
-        languages: "O projeto foi desenvolvido em html, css e react.",
+        languages: "O projeto foi desenvolvido em react e css.",
         link: [
-            `Repositório: <a target="_blank" href="https://github.com/eupedrobarbosa03/generator-boxShadow">https://github.com/eupedrobarbosa03/generator-boxShadow<a/>.`,
-            `Deploy: <a target="_blank" href="https://eupedrobarbosa03.github.io/generator-boxShadow/">https://eupedrobarbosa03.github.io/generator-boxShadow/</a>.`
+            `Repositório: <a target="_blank" href="https://github.com/eupedrobarbosa03/box-shadow">https://github.com/eupedrobarbosa03/box-shadow<a/>.`,
+            `Deploy: <a target="_blank" href="https://eupedrobarbosa03.github.io/box-shadow/">https://eupedrobarbosa03.github.io/box-shadow/</a>.`
         ]
     },
     {
