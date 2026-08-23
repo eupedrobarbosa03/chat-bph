@@ -25,13 +25,12 @@ export const projects: Project[] = [
         wordsReference: /portf[óo]lio/gim,
         about: [
             `O portfólio é uma apresentação rápida e direta sobre ele. O portfólio possui todos os projetos que ele desenvolveu.`,
-            `Eu com certeza estarei lá ou estou. 🤓`,
-            `O portfólio é responsivo para qualquer tipo de tela. Possui uma interface <strong>black</strong> e com pequenos efeitos de títulos, text-shadow, etc.`
+            `Estou lá como referência do portfólio. Que moral!`
         ],
-        languages: "O projeto foi desenvolvido em html, css, javascript e typescript.",
+        languages: "O projeto foi desenvolvido em react",
         link: [
-            `Repositório: <a target="_blank" href="https://github.com/eupedrobarbosa03/portfolio"> https://github.com/eupedrobarbosa03/portfolio<a/>.`,
-            `Deploy: <a target="_blank" href="https://eupedrobarbosa03.github.io/portfolio/">https://eupedrobarbosa03.github.io/portfolio/</a>.`
+            `Repositório: <a target="_blank" href="https://github.com/eupedrobarbosa03/meu-portfolio"> https://github.com/eupedrobarbosa03/meu-portfolio<a/>.`,
+            `Deploy: <a target="_blank" href="https://eupedrobarbosa03.github.io/meu-portfolio/">https://eupedrobarbosa03.github.io/meu-portfolio/</a>.`
         ]
     },
     {
