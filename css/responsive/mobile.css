@@ -2,7 +2,7 @@
 @media screen and (max-width: 650px) {
 
     #box_container_chat {
-        min-width: 340px;
+        min-width: 100%;
         height: 520px;
     }
 
