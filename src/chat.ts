@@ -10,6 +10,7 @@ const messageSend = document.querySelector<HTMLInputElement>("#container_send");
 
 interface RegExpMessage {
     aboutBot: RegExp;
+    aboutAuthor: RegExp;
     genericMessages: RegExp;
     projects: RegExp;
     teaching: RegExp;
@@ -23,13 +24,14 @@ interface Teaching {
 
 const regExpMessages: RegExpMessage = {
     aboutBot: /voc[êe] sobre|sobre voc[êe]|quero saber sobre voc[êe]|quem criou voc[êe]/gim,
+    aboutAuthor: /pedro ?(henrique)?|sobre ele|me fale sobre o autor|sobre o criador|sobre o pedro ?(henrique)?/gim,
     genericMessages: /belezinha|beleza|boa noit[e]+|bom di[a]+|boa tard[e]+|prazer|muito bem|opa|ol[áa]|(^o[i]+e?)|bem|estou bem|est[áa] tudo bem comigo|tudo bem comigo|estou feliz|estou muito bem/gim,
     projects: /(ban(k|c)o?( ?|-?)t?s?)|(portf[óo]lio)|(generator 2|password 2|generator password 2|passsowrd generator 2|generator 2|password 2)|(localiza-cep|localizador cep|cep)|(boxshadow|box-shadow.css|box-shadow)|(calculadora|calculator|simple calculator|calculadora simples)|(academy|academia)/gim,
     teaching: /#[a-zéãóáàèêâ0-9\,\ \-\!\?\.]+#/gim,
-commands: /^\+(comandos|ajuda|projetos|ensinamentos|pedro|links|reset)$/gim
+commands: /^\+(comandos|ajuda|projetos|ensinamentos|pedro|links|versão|reset)$/gim
 };
 
-const regExpAll = new RegExp(`${regExpMessages.aboutBot.source}|${regExpMessages.genericMessages.source}|${regExpMessages.projects.source}|${regExpMessages.teaching.source}|${regExpMessages.commands.source}`);
+const regExpAll = new RegExp(`${regExpMessages.aboutBot.source}|${regExpMessages.aboutAuthor.source}|${regExpMessages.genericMessages.source}|${regExpMessages.projects.source}|${regExpMessages.teaching.source}|${regExpMessages.commands.source}`);
 
 type Message = {
     bot: string[],
@@ -112,8 +114,8 @@ class Chat {
         switch (found[0]) {
             case "+comandos":
                 this.pendingMessages.push(
-                    `<strong>Lista de comandos disponíveis e suas funções:</strong>`,
-                    `<strong>+comandos:</strong> Lista todos os comandos disponíveis.<br><strong>+ajuda:</strong> Mostra o tutorial completo para ensinar a mim.<br><strong>+projetos:</strong> Lista todos os projetos do meu criador.<br><strong>+ensinamentos:</strong> Lista todos os ensinamentos que você me ensinou.<br><strong>+pedro:</strong> Comando exclusivo para falar sobre meu criador.<br><strong>+links:</strong> Lista de link's: repositório, linkedin, portfólio, etc<br><strong>+reset:</strong> Apaga todos os ensinamentos.`
+                    `<i>Lista de comandos disponíveis e suas funções:</i>`,
+                    `<i>+comandos: Lista todos os comandos disponíveis.<br>+ajuda: Mostra o tutorial completo para ensinar a mim.<br>+projetos: Lista todos os projetos do meu criador.<br>+ensinamentos: Lista todos os ensinamentos que você me ensinou.<br>+pedro: Comando exclusivo para falar sobre meu criador.<br>+versão: Mostra a minha versão atual.<br>+links: Lista de link's: repositório, linkedin, portfólio, etc<br>+reset: Apaga todos os ensinamentos.`
                 )
                 break;
             case "+ensinamentos":
@@ -155,12 +157,17 @@ class Chat {
                     `<strong>Pedro Henrique</strong> é um jovem rapaz de 20 anos apaixonado por tecnologia, no mundo dos códigos. Ele tem um grande objetivo de se tornar um desenvolvedor <strong>full-stack</strong>, entretanto,o primeiro passo é se tornar um deseolvedor <strong>front-end</strong> completo.`,
                     `Atualmente, Pedro Henrique possui conhecimento em html, css, javascript, typescript e react.`,
                     `A sua carreira está seguindo um bom caminho, que assim continue. Ele está graduando em <strong>análise e desenvolvimento de sistemas</strong> na Estácio.`,
-                    `Além da graduação, Pedro obtém cursos em instituições como <strong>Alura</strong> e <strong>udemy</strong>.`
+                    `Além da graduação, Pedro possui cursos em instituições como <strong>Alura</strong> e <strong>udemy</strong>.`
+                )
+                break;
+            case "+versão":
+                this.pendingMessages.push(
+                    `<i>A minha versão atual é: version 3.0</i>`
                 )
                 break;
             case "+links":
                 this.pendingMessages.push(
-                    `<a href="https://eupedrobarbosa03.github.io/portfolio" target="_blank">Porfólio</a> | <a href="https://www.linkedin.com/in/eupedrobarbosa/" target="_blank">Linkedin</a> | <a href="https://github.com/eupedrobarbosa03" target="_blank">Gitbub</a> | <a href="https://github.com/eupedrobarbosa03/chat-bph" target="_blank">Chat-bph</a>`
+                    `<a href="https://eupedrobarbosa03.github.io/meu-portfolio" target="_blank">Porfólio</a> | <a href="https://www.linkedin.com/in/eupedrobarbosa/" target="_blank">Linkedin</a> | <a href="https://github.com/eupedrobarbosa03" target="_blank">Gitbub</a> | <a href="https://github.com/eupedrobarbosa03/chat-bph" target="_blank">Chat-bph</a>`
                 )
                 break;
             case "+reset":
@@ -344,21 +351,33 @@ class Chat {
         
     };
 
-
-    botAbout(text: string): void {
+    about(text: string, type: "aboutBot" | "aboutAuthor"): void {
         text = text.toLowerCase()
-        const found = text.match(regExpMessages.aboutBot);
+        const found = text.match(regExpMessages[type]);
         const index = found?.filter((word) => word !== '');
         if (index?.length === 0 || !index) return;
         if (this.attemptToTeachMessagesPredefined || this.teachingCompleted) return;
 
+        if (type === "aboutBot") {
+            const messages: string[] = [
+                "Claro, posso falar sobre mim!",
+                `Sou um chat desenvolvido para passar informações sobre meu criador: <a target="_blank" href="https://github.com/eupedrobarbosa03">Pedro Henrique</a>.
+                `,
+                `Diga algo como como "quero saber sobre ele" ou "sobre o pedro".`
+            ];
+            messages.forEach((message) => this.pendingMessages.push(message))
+            return;
+        }
+
         const messages: string[] = [
-            `Hummm, você disse "${index?.length !== 1 ? index?.join(", ") : index}", sim, posso falar sobre mim.`,
-            `Bom, eu sou um chat desevolvido com o propósito de passar informações do meu criador: <a target="_blank" href="https://github.com/eupedrobarbosa03">Pedro Henrique</a>. Posso passar informações sobre os projetos, sobre ele, etc. Ah, você deve estar se perguntando o que é "CHAT BPH", né?! É a abreviação de "chat bot Pedro Henrique".`,
-            `Eu fui desenvolvido em typescript. ⭐`
+            `<strong>Pedro Henrique</strong> é um jovem rapaz de 20 anos apaixonado por tecnologia, no mundo dos códigos. Ele tem um grande objetivo de se tornar um desenvolvedor <strong>full-stack</strong>, entretanto,o primeiro passo é se tornar um deseolvedor <strong>front-end</strong> completo.`,
+            `Atualmente, Pedro Henrique possui conhecimento em html, css, javascript, typescript e react.`,
+            `A sua carreira está seguindo um bom caminho, que assim continue. Ele está graduando em <strong>análise e desenvolvimento de sistemas</strong> na Estácio.`,
+            `Além da graduação, Pedro obtém cursos em instituições como <strong>Alura</strong> e <strong>udemy</strong>.`
         ];
 
         messages.forEach((message) => this.pendingMessages.push(message))
+
     };
 
     general(message: string) {
@@ -380,7 +399,8 @@ class Chat {
             this.botTeachings(message);
             this.genericMessages(message);
             this.projectsMessages(message);
-            this.botAbout(message);      
+            this.about(message, "aboutBot");
+            this.about(message, "aboutAuthor");
             this.notSpam();
         };
     };
